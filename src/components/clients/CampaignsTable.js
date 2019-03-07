@@ -7,6 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faInfo} from '@fortawesome/free-solid-svg-icons'
 
 const styles = theme => ({
   root: {
@@ -20,17 +23,17 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(name, target, info, social, cCount, rDate) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein };
+  return { id, name, target, info, social, cCount, rDate };
 }
 
 const rows = [
-  createData('Quaker Video 1', '%80 Campain Target', 6.0, 24, 4.0),
-  createData('Quaker Video 2', '%30 Campain Target', 9.0, 37, 4.3),
-  createData('Quaker Lore', '%30 Campain Target', 16.0, 24, 6.0),
-  createData('Quaker Ipsum', '%30 Campain Target', 3.7, 67, 4.3),
-  createData('Quaker Lorem', '%30 Campain Target', 16.0, 49, 3.9),
+  createData('Quaker Video 1', '%80 Campain Target', '960/1200 leads generated','', 4.0, 5),
+  createData('Quaker Video 2', '%30 Campain Target', '22.500/75.000 euro purchase value','', 4.3, 12),
+  createData('Quaker Lore', '%30 Campain Target', '800.000/1.000.000 unique views', '', 6.0, 25),
+  createData('Quaker Ipsum', '%30 Campain Target', '960/1200 leads generated', '', 4.3, 15),
+  createData('Quaker Lorem', '%30 Campain Target', '960/1200 leads generated', '', 3.9, 18),
 ];
 
 function CampaignsTable(props) {
@@ -55,10 +58,14 @@ function CampaignsTable(props) {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.target}</TableCell>
+              <TableCell align="right"><FontAwesomeIcon icon={faInfo} />  {row.info}</TableCell>
+              <TableCell align="right">
+                <FontAwesomeIcon icon={faFacebookF} /><span>  </span>
+                <FontAwesomeIcon icon={faYoutube} />
+              </TableCell>
+              <TableCell align="right">{row.cCount}</TableCell>
+              <TableCell align="right">{row.rDate}</TableCell>
             </TableRow>
           ))}
         </TableBody>

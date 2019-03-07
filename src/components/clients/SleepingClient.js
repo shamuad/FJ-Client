@@ -56,7 +56,7 @@ class ActiveClient extends React.Component {
 
     return (
       <Card className={classes.card}>
-      <Typography variant="h6" gutterBottom>Active Clients
+      <Typography variant="h6" gutterBottom>Sleeping Clients
       </Typography>
         <CardHeader
           avatar={
