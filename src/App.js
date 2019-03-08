@@ -9,22 +9,16 @@ import SleepingClient from './components/clients/SleepingClient';
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 
-const client = new ApolloClient({ 
-  uri: 'http://localhost:4000/graphql'
-  // , fetch: fetch
-});
+const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 
 client
   .query({
     query: gql`
     {
-      getVideoKpis (videoTitle: "FJ Manifest-Get It Out"){
-        sum
-        avg
-        videoTitle
+      getAllVideos {
+        videoTitle(name: "FJ Manifest - Get It Out")
       }
-    
-    }
+    }    
     `
   })
   .then(result => console.log(result));
