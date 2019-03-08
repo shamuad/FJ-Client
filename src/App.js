@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import TopBar from './components/layout/TopBar'
+import ActiveClient from './components/clients/ActiveClient'
+import SleepingClient from './components/clients/SleepingClient';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+<<<<<<< HEAD
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
@@ -21,6 +25,11 @@ class App extends Component {
             Learn React
           </a>
         </header>
+=======
+        <TopBar />
+        <ActiveClient />
+        <SleepingClient />
+>>>>>>> 6d9fa7b7696ad25a847f0884edeba1f4bd4145ce
       </div>
     );
   }
