@@ -144,6 +144,21 @@ class TopBar extends React.Component {
         onClose={this.handleMenuClose}
       >
         <MenuItem onClick={this.handleMobileMenuClose}>
+          <Button color="inherit">
+            Clients
+          </Button>
+        </MenuItem>
+        <MenuItem onClick={this.handleMobileMenuClose}>
+          <Button color="inherit">
+            Campaigns
+          </Button>
+        </MenuItem>
+        <MenuItem onClick={this.handleMobileMenuClose}>
+          <Button color="inherit">
+            Reports
+          </Button>
+        </MenuItem>
+        <MenuItem onClick={this.handleMobileMenuClose}>
           <IconButton color="inherit">
             <Badge badgeContent={11} color="secondary">
               <NotificationsIcon />
@@ -170,15 +185,6 @@ class TopBar extends React.Component {
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               SmartVideo APP
             </Typography>
-            <Button variant="contained" size="small" color="primary" className={classes.button}>
-                Clients
-            </Button>
-            <Button variant="contained" size="small" color="primary" className={classes.button}>
-                Campaigns
-            </Button>
-            <Button variant="contained" size="small" color="primary" className={classes.button}>
-                Reports
-            </Button>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -193,8 +199,11 @@ class TopBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
+              <Button color="inherit">Clients</Button>
+              <Button color="inherit">Campaigns</Button>
+              <Button color="inherit">Reports</Button>
               <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
+                <Badge badgeContent={1} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

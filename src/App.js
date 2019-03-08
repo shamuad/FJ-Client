@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 import TopBar from './components/layout/TopBar'
-import ActiveClient from './components/clients/ActiveClient'
-import SleepingClient from './components/clients/SleepingClient';
+import ClientsPage from './components/clients/ClientsPage'
+import CampaignDetail from './components/clients/CampaignDetail'
+import VideoDetail from './components/clients/VideoDetail'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <TopBar />
-        <ActiveClient />
-        <SleepingClient />
-      </div>
+      <Router>
+        <div>
+          <nav>
+            <TopBar />
+          </nav>
+          <Route exact path="/clients" component={ClientsPage} />
+          <Route exact path="/clients/campaigns" component={CampaignDetail} />
+          <Route exact path="/clients/campaigns/video" component={VideoDetail} />
+        </div>
+      </Router>
     );
   }
 }
