@@ -6,6 +6,24 @@ import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
 
+
+import ApolloClient from "apollo-boost";
+import gql from "graphql-tag";
+
+const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
+
+client
+  .query({
+    query: gql`
+    {
+      getAllVideos {
+        videoTitle(name: "FJ Manifest - Get It Out")
+      }
+    }    
+    `
+  })
+  .then(result => console.log(result));
+
 class App extends Component {
   render() {
     return (
