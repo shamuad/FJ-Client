@@ -44,14 +44,14 @@ const styles = theme => ({
         textAlign: 'left',
         color: theme.palette.text.secondary,
         margin: '1em 1em 0em 1em',
-        height: 80
+        height: 93
     },
     paperVideoSection: {
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
         color: theme.palette.text.secondary,
         margin: '1em 1em 0em 1em',
-        height: 320
+        height: 360
     },
     paperCompare: {
         padding: theme.spacing.unit * 2,
