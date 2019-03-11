@@ -14,6 +14,85 @@ import TextField from '@material-ui/core/TextField';
 import styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faYoutube, faInstagram, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+
+const VideoKpis = (props) => (
+  <Query
+    query={gql`
+      {
+        getVideoKpis {
+          videoTitle,
+          campaign,
+          impressions_sum
+          views_sum
+          viewRate_avg
+        }
+      }
+    `}
+    >
+     {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+      const { classes } = props;
+      return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg }) => (
+        <div key={index}>
+        {/* <p>{videoTitle}</p> */}
+          <Grid container spacing={16}>
+        <Grid item xs={6} sm={6}>
+            <Paper className={classes.paperVideoSection}>
+              Video Section!
+            </Paper>
+          </Grid>
+          <Grid item xs={6} sm={6}>
+            <Grid container spacing={16}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paperValues}>
+                    <Typography variant="h6" component="h3">
+                    {console.log(videoTitle)}
+                    {videoTitle}
+                    </Typography>
+                    <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
+                    <FontAwesomeIcon icon={faYoutube} /><span>   </span>
+                    <FontAwesomeIcon icon={faInstagram} /><span>   </span>
+                    <FontAwesomeIcon icon={faTwitterSquare} />
+                    </Paper>
+                </Grid>
+            <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    Soft Convertion
+              <Typography variant="h6" component="h3" >
+                    1.000/1.200
+                    </Typography>
+              </Paper></Grid>
+              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    Unique Views
+              <Typography variant="h6" component="h3" >
+                    {views_sum}
+                    </Typography>
+              </Paper></Grid>
+              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    CTR
+              <Typography variant="h6" component="h3" >
+                    35%
+                    </Typography>
+              </Paper></Grid>
+              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    View Retention
+              <Typography variant="h6" component="h3" >
+                    {Math.round(viewRate_avg)}%
+                    </Typography>
+              </Paper></Grid>
+            </Grid>
+            </Grid>
+          </Grid>
+        </div>
+      ))
+    }}
+    </Query>
+);
+
+
 
 class VideoDetail extends React.Component {
 
@@ -22,6 +101,9 @@ class VideoDetail extends React.Component {
     name: '',
     spacing:'8',
   };
+
+
+
 
   componentDidMount() {
 
@@ -32,11 +114,14 @@ class VideoDetail extends React.Component {
   };
 
   render() {
+    // VideoKpis()
     const { classes } = this.props;
-
+    
 
     return (
       <div className={classes.root}>
+        {/* {VideoKpis(classes)} */}
+   
         <Grid container spacing={16}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -91,6 +176,8 @@ class VideoDetail extends React.Component {
               {/* ------------------------ */}
 
             </Paper>
+            
+            <VideoKpis {...this.props}/>
           </Grid>
           <Grid item xs={6} sm={6}>
             <Paper className={classes.paperVideoSection}>
@@ -102,7 +189,7 @@ class VideoDetail extends React.Component {
                 <Grid item xs={12}>
                     <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h3">
-                    Ontdek cruesli pure chololade(15 sec teaser)
+                    Title
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
                     <FontAwesomeIcon icon={faYoutube} /><span>   </span>

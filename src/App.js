@@ -30,32 +30,7 @@ const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 //   })
 //   .then(result => console.log(result));
 
-  const VideoKpis = () => (
-    <Query
-      query={gql`
-        {
-          getVideoKpis {
-            videoTitle,
-            campaign,
-            impressions_sum
-            views_sum
-            viewRate_avg
-          }
-        }
-      `}
-      >
-       {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-  
-        return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg }) => (
-          <div key={index}>
-            <p>{videoTitle}</p> <p>{views_sum}</p>
-          </div>
-        ));
-      }}
-      </Query>
-  );
+
 
 
 
@@ -77,7 +52,6 @@ class App extends Component {
           <Route exact path="/clients/campaigns" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/video" component={VideoDetail} />
           <p>test</p>
-          {VideoKpis()}
         </div>
       </Router>
       </ApolloProvider>
