@@ -1,35 +1,171 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import NoSsr from '@material-ui/core/NoSsr';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { palette, spacing, typography } from '@material-ui/system';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import BarChart from './BarChart'
 
-const Box = styled.div`${palette}${spacing}${typography}`;
-// or import { unstable_Box as Box } from '@material-ui/core/Box';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import styles from './styles'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebookF, faYoutube, faInstagram, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
-});
+class VideoDetail extends React.Component {
 
-function Demo() {
-  return (
-    <NoSsr>
-      <ThemeProvider theme={theme}>
-        <Box
-          color="primary.main"
-          bgcolor="background.paper"
-          width="100%"
-          fontFamily="h6.fontFamily"
-          fontSize={{ xs: 'h6.fontSize', sm: 'h4.fontSize', md: 'h3.fontSize' }}
-          p={{ xs: 2, sm: 3, md: 4 }}
-        >
-          @material-ui/system
-        </Box>
-      </ThemeProvider>
-    </NoSsr>
-  );
+  state = {
+    period: '',
+    name: '',
+    spacing:'8',
+  };
+
+  componentDidMount() {
+
+  }
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+
+    return (
+      <div className={classes.root}>
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              {/* --Select Period and Date Picker --- */}
+              <form className={classes.root} autoComplete="off">
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="age-simple">Select Period</InputLabel>
+                  <Select
+                    value={this.state.period}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'period',
+                      id: 'period',
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    id="date"
+                    label="From"
+                    type="date"
+                    defaultValue="2017-05-24"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    id="date"
+                    label="To"
+                    type="date"
+                    defaultValue="2017-05-24"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+              </form>
+
+              {/* ------------------------ */}
+
+            </Paper>
+          </Grid>
+          <Grid item xs={6} sm={6}>
+            <Paper className={classes.paperVideoSection}>
+              Video Section!
+            </Paper>
+          </Grid>
+          <Grid item xs={6} sm={6}>
+            <Grid container spacing={16}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paperValues}>
+                    <Typography variant="h6" component="h3">
+                    Ontdek cruesli pure chololade(15 sec teaser)
+                    </Typography>
+                    <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
+                    <FontAwesomeIcon icon={faYoutube} /><span>   </span>
+                    <FontAwesomeIcon icon={faInstagram} /><span>   </span>
+                    <FontAwesomeIcon icon={faTwitterSquare} />
+                    </Paper>
+                </Grid>
+            <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    Soft Convertion
+              <Typography variant="h6" component="h3" >
+                    1.000/1.200
+                    </Typography>
+              </Paper></Grid>
+              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    Unique Views
+              <Typography variant="h6" component="h3" >
+                    100.000
+                    </Typography>
+              </Paper></Grid>
+              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    CTR
+              <Typography variant="h6" component="h3" >
+                    35%
+                    </Typography>
+              </Paper></Grid>
+              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                    View Retention
+              <Typography variant="h6" component="h3" >
+                    76%
+                    </Typography>
+              </Paper></Grid>
+            </Grid>
+            {/* </Paper> */}
+          </Grid>
+
+          <Grid item xs={12}>
+            <Paper className={classes.paperValues}>
+            <FontAwesomeIcon icon={faFacebookF} /><span>  Best perfoming platform</span>
+            </Paper>
+          </Grid> 
+
+{/* 
+          <Grid container spacing={24}>
+            <Grid item xs={4} sm={4}><Paper className={classes.paperValues} /></Grid>
+            <Grid item xs={4} sm={4}><Paper className={classes.paperValues} /></Grid>
+            <Grid item xs={4} sm={4}><Paper className={classes.paperValues} /></Grid>
+          </Grid> */}
+        
+          <Grid item xs={12}>
+            <Paper>
+            <BarChart />
+            </Paper>
+          </Grid> 
+        
+
+        </Grid>
+      </div>
+    );
+  }
 }
 
-export default Demo;
+VideoDetail.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(VideoDetail);
