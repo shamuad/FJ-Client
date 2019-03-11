@@ -37,18 +37,21 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
         color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
     },
     paperValues: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 1,
         textAlign: 'left',
         color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
         height: 80
     },
     paperVideoSection: {
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
         color: theme.palette.text.secondary,
-        height: 340
+        margin: '1em 1em 0em 1em',
+        height: 320
     },
     paperCompare: {
         padding: theme.spacing.unit * 2,
