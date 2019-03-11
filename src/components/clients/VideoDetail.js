@@ -37,20 +37,14 @@ const VideoKpis = (props) => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       const { classes } = props;
-      console.log(data.getVideoKpis)
       return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg, videoId }) => (
         <div key={impressions_sum}>
-          {/* <p>{videoTitle}</p> */}
           <Grid container spacing={16}>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paperVideoSection}>
-                Video Section!
                   <iframe width="560" height="315"
                   src={`https://www.youtube.com/embed/${videoId}`}
-                  // frameborder="0"
-                  // allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  // allowfullscreen
-                  >
+                  title={videoTitle}>
                   </iframe>
               </Paper>
             </Grid>
