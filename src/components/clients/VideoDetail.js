@@ -22,13 +22,18 @@ const VideoKpis = (props) => (
   <Query
     query={gql`
       {
-        getVideoKpis {
-          videoTitle,
-          campaign,
+        getOneVideoKpis(where: {
+          videoId: "8zhv-q8zW1s"
+        })
+        {
+          campaign
+          campaignID
+          videoTitle
+          videoId
+          viewRate_avg
           impressions_sum
           views_sum
-          viewRate_avg
-          videoId
+          ctr_avg
         }
       }
     `}
@@ -37,8 +42,9 @@ const VideoKpis = (props) => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       const { classes } = props;
-      console.log(data.getVideoKpis)
-      return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg, videoId }) => (
+      console.log(data.getOneVideoKpis)
+      const { index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg, videoId } = data.getOneVideoKpis
+      return (
         <div key={impressions_sum}>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={6}>
@@ -92,7 +98,7 @@ const VideoKpis = (props) => (
             </Grid>
           </Grid>
         </div>
-      ))
+      )
     }}
   </Query>
 );
