@@ -61,7 +61,7 @@ const VideoKpis = (props) => (
               <Grid container spacing={16}>
                 <Grid item xs={12}>
                   <Paper className={classes.paperValues}>
-                    <Typography variant="h6" component="h3">
+                    <Typography variant="h6" component="h6">
                       {videoTitle}
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
@@ -179,11 +179,21 @@ class VideoDetail extends React.Component {
             </Paper>
           </Grid>
 
-          <Grid item xs={12}>
+
+          <Grid item xs={3} sm={9}>
+            <Paper className={classes.paperGraph}>
+            <BarChart />
+            </Paper>
+          </Grid>
+          <Grid item xs={9} sm={3}><Paper className={classes.paperGraph}>
+            
+            </Paper> </Grid>
+
+          {/* <Grid item xs={24}>
             <Paper>
               <BarChart />
             </Paper>
-          </Grid>
+          </Grid> */}
 
         </Grid>
       </div>

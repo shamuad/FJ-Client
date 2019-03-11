@@ -44,7 +44,7 @@ const styles = theme => ({
         textAlign: 'left',
         color: theme.palette.text.secondary,
         margin: '1em 1em 0em 1em',
-        height: 93
+        height: 93,
     },
     paperVideoSection: {
         padding: theme.spacing.unit * 2,
@@ -53,10 +53,12 @@ const styles = theme => ({
         margin: '1em 1em 0em 1em',
         height: 360
     },
-    paperCompare: {
+    paperGraph: {
         padding: theme.spacing.unit * 2,
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
+        height: 310
     },
     textField: {
         marginLeft: theme.spacing.unit,
