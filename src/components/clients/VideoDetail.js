@@ -28,6 +28,7 @@ const VideoKpis = (props) => (
           impressions_sum
           views_sum
           viewRate_avg
+          videoId
         }
       }
     `}
@@ -36,20 +37,22 @@ const VideoKpis = (props) => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       const { classes } = props;
-      return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg }) => (
-        <div key={index}>
+      return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg, videoId }) => (
+        <div key={impressions_sum}>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paperVideoSection}>
-                Video Section!
-            </Paper>
+                  <iframe width="560" height="315"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={videoTitle}>
+                  </iframe>
+              </Paper>
             </Grid>
             <Grid item xs={6} sm={6}>
               <Grid container spacing={16}>
                 <Grid item xs={12}>
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h3">
-                      {console.log(videoTitle)}
                       {videoTitle}
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
@@ -105,7 +108,6 @@ class VideoDetail extends React.Component {
 
   render() {
     const { classes } = this.props;
-
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
