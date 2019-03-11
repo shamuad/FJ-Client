@@ -50,7 +50,6 @@ const VideoKpis = (props) => (
                 <Grid item xs={12}>
                     <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h3">
-                    {console.log(videoTitle)}
                     {videoTitle}
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
@@ -91,6 +90,8 @@ const VideoKpis = (props) => (
     }}
     </Query>
 );
+
+
 
 
 
