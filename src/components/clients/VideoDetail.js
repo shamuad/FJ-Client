@@ -53,7 +53,6 @@ const VideoKpis = (props) => (
                 <Grid item xs={12}>
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h3">
-                      {/* {console.log(videoTitle)} */}
                       {videoTitle}
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
@@ -95,8 +94,6 @@ const VideoKpis = (props) => (
   </Query>
 );
 
-
-
 class VideoDetail extends React.Component {
 
   state = {
@@ -105,26 +102,14 @@ class VideoDetail extends React.Component {
     spacing: '8',
   };
 
-
-
-
-  componentDidMount() {
-
-  }
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-    // VideoKpis()
     const { classes } = this.props;
-
-
     return (
       <div className={classes.root}>
-        {/* {VideoKpis(classes)} */}
-
         <Grid container spacing={16}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -175,16 +160,16 @@ class VideoDetail extends React.Component {
                   />
                 </FormControl>
               </form>
-
-              {/* ------------------------ */}
-
             </Paper>
-
             <VideoKpis {...this.props} />
           </Grid>
           <Grid item xs={6} sm={6}>
             <Paper className={classes.paperVideoSection}>
-              Video Section!
+            <iframe title='video' width="560" height="315" 
+            src="https://www.youtube.com/embed/8zhv-q8zW1s" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
             </Paper>
           </Grid>
           <Grid item xs={6} sm={6}>
