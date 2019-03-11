@@ -1,8 +1,11 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
+import { Title } from '@devexpress/dx-react-chart-material-ui';
+
 import {
   Chart,
   BarSeries,
+  Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 
 const data = [
@@ -21,18 +24,22 @@ export default class BarChart extends React.PureComponent {
 
     this.state = {
       data,
+      height: 300,
     };
   }
 
   render() {
-    const { data: chartData } = this.state;
+    const { data: chartData, height} = this.state;
 
     return (
       <Paper>
         <Chart
-          data={chartData}
+          data={chartData} height={height}
         >
-
+          <Legend />
+        <Title
+            text="Unique Views"
+          />
           <BarSeries
             valueField="population"
             argumentField="year"

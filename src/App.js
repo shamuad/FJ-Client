@@ -51,7 +51,6 @@ class App extends Component {
           <Route exact path="/clients" component={ClientsPage} />
           <Route exact path="/clients/campaigns" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/video" component={VideoDetail} />
-          <p>test</p>
         </div>
       </Router>
       </ApolloProvider>
