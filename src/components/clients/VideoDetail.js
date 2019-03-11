@@ -1,4 +1,6 @@
 import React from 'react';
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import styled, { ThemeProvider } from 'styled-components';
 import NoSsr from '@material-ui/core/NoSsr';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -6,6 +8,37 @@ import { palette, spacing, typography } from '@material-ui/system';
 
 const Box = styled.div`${palette}${spacing}${typography}`;
 // or import { unstable_Box as Box } from '@material-ui/core/Box';
+
+
+
+const VideoKpis = () => (
+  <Query
+    query={gql`
+      {
+        rgetVideoKpis {
+          videoTitle,
+          campaign,
+          impressions_sum
+          views_sum
+          viewRate_avg
+        }
+      }
+    `}
+    >
+     {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+
+      return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg }) => (
+        <div key={index}>
+          <p>{videoTitle}</p>
+        </div>
+      ));
+    }}
+    </Query>
+);
+
+
 
 const theme = createMuiTheme({
   typography: {
