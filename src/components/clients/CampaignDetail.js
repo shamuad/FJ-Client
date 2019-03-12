@@ -45,41 +45,44 @@ const CampaignDetails = ({classes, match}) => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       return  (
+        <div>
+        <Typography variant="h4" component="h6" >
+            Campaign: {data.getCampaignsDetails.name}
+         </Typography>
         <Grid item xs={3} sm={9}>
-
         {/* <Paper className={classes.paper}> */}
         <Grid container spacing={24}>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-          <Typography variant="h5" component="h3" >
-                   {data.getCampaignsDetails.detail.unique_views} Unique views
+                 Unique views
+          <Typography variant="h3" component="h3" >
+                  {Math.round(data.getCampaignsDetails.detail.unique_views)}
                 </Typography>
           </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-          <Typography variant="h5" component="h3" >
-                   {data.getCampaignsDetails.detail.retention}} Retention
+                Retention
+            <Typography variant="h3" component="h3" >
+                {Math.floor(data.getCampaignsDetails.detail.retention)}%
                 </Typography>
           </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-          <Typography variant="h5" component="h3" >
-                   {data.getCampaignsDetails.detail.cpv}} CPV
+                CPV 
+          <Typography variant="h3" component="h3" >
+                   {parseFloat(data.getCampaignsDetails.detail.cpv).toFixed(2)}
                 </Typography>
                 </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-          <Typography variant="h5" component="h3" >
-                   {data.getCampaignsDetails.detail.ctr} CTR
-                </Typography></Paper></Grid>
-          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-          <Typography variant="h5" component="h3" >
-            Name: {data.getCampaignsDetails.name} 
+                CTR 
+          <Typography variant="h3" component="h3" >
+                € {parseFloat(data.getCampaignsDetails.detail.ctr).toFixed(2)}
                 </Typography></Paper></Grid>
            {data.getCampaignsDetails.ads.map(ad => (
               <Grid key= {ad.id} item xs={4} sm={4}><Paper className={classes.paperValues}><Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video/${ad.id}`}>{ad.name}</Link></Paper></Grid>
+
            ))}     
-          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
         </Grid>
         {/* </Paper> */}
       </Grid>
+      </div>
       )
     }
   }
@@ -111,7 +114,12 @@ class CampaignDetail extends React.Component {
 
     return (
       <div className={classes.root}>
-   
+      <br/>
+        <Grid ontainer spacing={24}>
+        <Grid item xs={20}> 
+              <Link to={"/clients"}>All campaigns</Link>
+            </Grid>
+        </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>

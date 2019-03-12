@@ -50,17 +50,17 @@ const CampaignTitles = (props) => (
           {rows.map(row => (
             <TableRow key={row.id}>
             <Link to={`/clients/campaigns/${row.id}`}>
-              <TableCell component="th" scope="row">
+              <TableCell  align="left" component="th" scope="row">
                 {row.name}
               </TableCell>
-              {/* <TableCell align="right">{row.target}</TableCell> */}
-              {/* <TableCell align="right"><FontAwesomeIcon icon={faInfo} />  {row.info}</TableCell> */}
-              {/* <TableCell align="right"> */}
-                {/* <FontAwesomeIcon icon={faFacebookF} /><span>  </span>
-                <FontAwesomeIcon icon={faYoutube} /> */}
-              {/* </TableCell> */}
-              <TableCell align="right">{row.cCount}</TableCell>
               </Link>
+              <TableCell align="right">{row.id}</TableCell>
+              {/* <TableCell align="right"><FontAwesomeIcon icon={faInfo} />  {row.info}</TableCell>
+              <TableCell align="right">
+                <FontAwesomeIcon icon={faFacebookF} /><span>  </span>
+                <FontAwesomeIcon icon={faYoutube} />
+              </TableCell> */}
+              <TableCell align="right">{row.cCount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -98,7 +98,8 @@ function CampaignsTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
+            <TableCell align="left">Title</TableCell>
+            <TableCell align="right">ID</TableCell>
             {/* <TableCell align="right">Social Media</TableCell> */}
             <TableCell align="right">Count</TableCell>
           </TableRow>
