@@ -40,6 +40,7 @@ const CampaignTitles = (props) => (
   {({ loading, error, data }) => {
       if (loading) return "Loading...";
       if (error) return `Error! ${error.message}`;
+
       const rows = []
       data.getCampaigns.google.map(campaign => rows.push(createData(campaign.id,campaign.name, campaign.ads.length)))
       data.getCampaigns.facebook.map(campaign => rows.push(createData(campaign.id,campaign.name, campaign.ads.length)))
@@ -100,22 +101,6 @@ function CampaignsTable(props) {
           </TableRow>
         </TableHead>
         <CampaignTitles />
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              {/* <TableCell align="right">{row.target}</TableCell> */}
-              {/* <TableCell align="right"><FontAwesomeIcon icon={faInfo} />  {row.info}</TableCell> */}
-              {/* <TableCell align="right"> */}
-                {/* <FontAwesomeIcon icon={faFacebookF} /><span>  </span>
-                <FontAwesomeIcon icon={faYoutube} /> */}
-              {/* </TableCell> */}
-              <TableCell align="right">{row.cCount}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
       </Table>
     </Paper>
   );
