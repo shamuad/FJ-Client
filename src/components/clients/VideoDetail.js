@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import BarChart from './BarChart'
+// import BarChart from './BarChart'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -18,42 +18,53 @@ import gql from "graphql-tag";
 import './video.css';
 
 const VideoKpis = (props) => (
+  
   <Query
+   
     query={gql`
-      {
-        getOneVideoKpis(where: {
-          videoId: "8zhv-q8zW1s"
-        })
-        {
-          campaign
-          campaignID
-          videoTitle
-          videoId
-          viewRate_avg
-          impressions_sum
-          views_sum
-          ctr_avg
+    
+      query videoDetails($id: String!) {
+        getVideoDetails(id: $id) {
+          id
+          name
+          cpv
+          ctr
+          unique_view
+          spend
+          retention
+          video_id
+          thumbnails
         }
+      
       }
-    `}
+    `}variables={{id: props.match.params.id}}
   >
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       const { classes } = props;
-      console.log(data.getOneVideoKpis)
-      const { index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg, videoId } = data.getOneVideoKpis
+      const {
+        // id,
+        name,
+        // cpv,
+        ctr,
+        unique_view,
+        // spend,
+        retention,
+        video_id,
+        // thumbnails 
+          } = data.getVideoDetails
       return (
-        <div key={impressions_sum}>
+        <div>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paperVideoSection}>
-              <div className="video-responsive">
-                <iframe width="560" height="315"
-                  src={`https://www.youtube.com/embed/${videoId}`}
-                  title={videoTitle}>
-                </iframe>
-              </div>
+                <div className="video-responsive">
+                  <iframe width="560" height="315"
+                    src={`https://www.youtube.com/embed/${video_id}`}
+                    title={name}>
+                  </iframe>
+                </div>
               </Paper>
             </Grid>
             <Grid item xs={6} sm={6}>
@@ -62,7 +73,7 @@ const VideoKpis = (props) => (
 
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h6">
-                      {videoTitle}
+                      {name}
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
                     <FontAwesomeIcon icon={faYoutube} /><span>   </span>
@@ -79,19 +90,19 @@ const VideoKpis = (props) => (
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   Unique Views
               <Typography variant="h6" component="h3" >
-                    {views_sum}
+                    {unique_view}
                   </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   CTR
-              <Typography variant="h6" component="h3" >
-                    35%
+                  <Typography variant="h6" component="h3" >
+                  {ctr}
                     </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   View Retention
               <Typography variant="h6" component="h3" >
-                    {Math.round(viewRate_avg)}%
+                    {retention}%
                     </Typography>
                 </Paper></Grid>
               </Grid>
@@ -180,14 +191,14 @@ class VideoDetail extends React.Component {
           </Grid>
 
 
-          <Grid item xs={3} sm={9}>
+          {/* <Grid item xs={3} sm={9}>
             <Paper className={classes.paperGraph}>
-            <BarChart />
+              <BarChart />
             </Paper>
-          </Grid>
+          </Grid> */}
           <Grid item xs={9} sm={3}><Paper className={classes.paperGraph}>
-            
-            </Paper> </Grid>
+
+          </Paper> </Grid>
 
           {/* <Grid item xs={24}>
             <Paper>
