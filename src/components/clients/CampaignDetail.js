@@ -67,7 +67,7 @@ const CampaignDetails = ({classes, match}) => (
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                 CPV 
           <Typography variant="h3" component="h3" >
-                   {parseFloat(data.getCampaignsDetails.detail.cpv).toFixed(2)}
+                   € {parseFloat(data.getCampaignsDetails.detail.cpv).toFixed(2)}
                 </Typography>
                 </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
@@ -76,7 +76,7 @@ const CampaignDetails = ({classes, match}) => (
                 € {parseFloat(data.getCampaignsDetails.detail.ctr).toFixed(2)}
                 </Typography></Paper></Grid>
            {data.getCampaignsDetails.ads.map(ad => (
-              <Grid key= {ad.id} item xs={4} sm={4}><Paper className={classes.paperValues}><Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video/${ad.id}`}>{ad.name}</Link></Paper></Grid>
+              <Grid key= {ad.id} item xs={0.5} sm={9}><Paper className={classes.paperValues}>Video: <br/> <Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video/${ad.id}`}>{ad.name}</Link></Paper></Grid>
 
            ))}     
         </Grid>

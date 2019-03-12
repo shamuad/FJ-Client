@@ -46,7 +46,7 @@ const VideoKpis = (props) => (
       const {
         // id,
         name,
-        // cpv,
+        cpv,
         ctr,
         unique_view,
         // spend,
@@ -62,6 +62,9 @@ const VideoKpis = (props) => (
                 <div className="video-responsive">
                   <iframe width="560" height="315"
                     src={`https://www.youtube.com/embed/${video_id}`}
+                    
+                    // src={`https://www.facebook.com/watch/?v=${video_id}`}
+                    
                     title={name}>
                   </iframe>
                 </div>
@@ -82,10 +85,10 @@ const VideoKpis = (props) => (
                   </Paper>
                 </Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                  Soft Convertion
+                  CPV
               <Typography variant="h6" component="h3" >
-                    1.000/1.200
-                    </Typography>
+                  € {parseFloat(cpv).toFixed(2)}             
+                   </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   Unique Views
@@ -96,13 +99,13 @@ const VideoKpis = (props) => (
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   CTR
                   <Typography variant="h6" component="h3" >
-                  {ctr}
+                  € {parseFloat(ctr).toFixed(2)}
                     </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   View Retention
               <Typography variant="h6" component="h3" >
-                    {retention}%
+              {Math.floor(retention)}%
                     </Typography>
                 </Paper></Grid>
               </Grid>
@@ -196,9 +199,9 @@ class VideoDetail extends React.Component {
               <BarChart />
             </Paper>
           </Grid> */}
-          <Grid item xs={9} sm={3}><Paper className={classes.paperGraph}>
+          {/* <Grid item xs={9} sm={3}><Paper className={classes.paperGraph}>
 
-          </Paper> </Grid>
+          </Paper> </Grid> */}
 
           {/* <Grid item xs={24}>
             <Paper>
