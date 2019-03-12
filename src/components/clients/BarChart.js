@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import {Chart,BarSeries} from '@devexpress/dx-react-chart-material-ui';
+import {Chart,BarSeries, ArgumentAxis, ValueAxis, Title} from '@devexpress/dx-react-chart-material-ui';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -18,19 +18,20 @@ const getGraphInfo = (chartData) => (
     `}
   >
     {({ loading, error, data }) => {
-      console.log(data.getViewsPerDay)
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
-      const dataNew = data.getViewsPerDay
       return  (
       <Paper>
       <Chart
         data={data.getViewsPerDay}
       >
+        <ArgumentAxis />
+        <ValueAxis max={2000} />
         <BarSeries
-          valueField="day"
-          argumentField="views_sum"
+          valueField="views_sum"
+          argumentField="day"
         />
+          <Title text="Unique views" />
       </Chart>
     </Paper>)
       ;
@@ -59,22 +60,13 @@ export default class BarChart extends React.PureComponent {
   }
 
   render() {
-    const { data: chartData } = this.state;
+    const { data } = this.state;
   
     return (
-      <Paper>
-        {getGraphInfo(chartData)}
-        <Chart
-          data={chartData}
-        >
-
-          <BarSeries
-            valueField="population"
-            argumentField="year"
-          />
-          
-        </Chart>
-      </Paper>
+      <div>
+      {getGraphInfo()}
+      </div>
+    
     );
   }
 }
