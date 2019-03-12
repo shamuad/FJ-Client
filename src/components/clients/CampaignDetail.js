@@ -15,6 +15,36 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import styles from './styles'
 import PieChart from './PieChart'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+const CampaignDetails = () => (
+  <Query 
+    query={gql`
+    {
+    getCampaignsDetails(id:"814137338") {
+      name
+      id
+      detail {
+        retention
+        cpv
+        ctr
+        unique_views
+      }
+    }
+    }
+    `}
+  >
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+        console.log(data)
+      return  null
+    }
+  }
+  </Query>
+);
+
 
 class CampaignDetail extends React.Component {
 
@@ -23,8 +53,10 @@ class CampaignDetail extends React.Component {
     name: 'hai',
   };
 
-  componentDidMount() {
 
+
+  componentDidMount() {
+   
   }
 
   handleChange = event => {
@@ -34,9 +66,11 @@ class CampaignDetail extends React.Component {
   render() {
     const { classes } = this.props;
 
+    
 
     return (
       <div className={classes.root}>
+       <CampaignDetails/>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
