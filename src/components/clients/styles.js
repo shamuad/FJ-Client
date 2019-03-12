@@ -37,29 +37,35 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
         color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
     },
     paperValues: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 1,
         textAlign: 'left',
         color: theme.palette.text.secondary,
-        height: 80
+        margin: '1em 1em 0em 1em',
+        height: 93,
     },
     paperVideoSection: {
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
         color: theme.palette.text.secondary,
-        height: 340
+        margin: '1em 1em 0em 1em',
+        height: 360
     },
-    paperCompare: {
+    paperGraph: {
         padding: theme.spacing.unit * 2,
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
+        height: 310
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
     },
+    
 });
 
 export default styles

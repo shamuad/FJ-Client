@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
+import { Title } from '@devexpress/dx-react-chart-material-ui';
 import {Chart,BarSeries, ArgumentAxis, ValueAxis, Title} from '@devexpress/dx-react-chart-material-ui';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
@@ -39,7 +40,6 @@ const getGraphInfo = (chartData) => (
   </Query>
 );
 
-
 const data = [
   { year: '1950', population: 2.525 },
   { year: '1960', population: 3.018 },
@@ -56,6 +56,7 @@ export default class BarChart extends React.PureComponent {
 
     this.state = {
       data,
+      height: 300,
     };
   }
 

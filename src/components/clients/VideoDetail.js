@@ -16,113 +16,110 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faYoutube, faInstagram, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-
+import './video.css';
 
 const VideoKpis = (props) => (
   <Query
     query={gql`
       {
-        getVideoKpis {
-          videoTitle,
-          campaign,
+        getOneVideoKpis(where: {
+          videoId: "8zhv-q8zW1s"
+        })
+        {
+          campaign
+          campaignID
+          videoTitle
+          videoId
+          viewRate_avg
           impressions_sum
           views_sum
-          viewRate_avg
+          ctr_avg
         }
       }
     `}
-    >
-     {({ loading, error, data }) => {
+  >
+    {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       const { classes } = props;
-      return data.getVideoKpis.map(({ index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg }) => (
-        <div key={index}>
-        {/* <p>{videoTitle}</p> */}
+      console.log(data.getOneVideoKpis)
+      const { index, videoTitle, campaign, impressions_sum, views_sum, viewRate_avg, videoId } = data.getOneVideoKpis
+      return (
+        <div key={impressions_sum}>
           <Grid container spacing={16}>
-        <Grid item xs={6} sm={6}>
-            <Paper className={classes.paperVideoSection}>
-              Video Section!
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={6}>
-            <Grid container spacing={16}>
+            <Grid item xs={6} sm={6}>
+              <Paper className={classes.paperVideoSection}>
+              <div className="video-responsive">
+                <iframe width="560" height="315"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={videoTitle}>
+                </iframe>
+              </div>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} sm={6}>
+              <Grid container spacing={16}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paperValues}>
-                    <Typography variant="h6" component="h3">
-                    {videoTitle}
+
+                  <Paper className={classes.paperValues}>
+                    <Typography variant="h6" component="h6">
+                      {videoTitle}
                     </Typography>
                     <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
                     <FontAwesomeIcon icon={faYoutube} /><span>   </span>
                     <FontAwesomeIcon icon={faInstagram} /><span>   </span>
                     <FontAwesomeIcon icon={faTwitterSquare} />
-                    </Paper>
+                  </Paper>
                 </Grid>
-            <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    Soft Convertion
+                <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                  Soft Convertion
               <Typography variant="h6" component="h3" >
                     1.000/1.200
                     </Typography>
-              </Paper></Grid>
-              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    Unique Views
+                </Paper></Grid>
+                <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                  Unique Views
               <Typography variant="h6" component="h3" >
                     {views_sum}
-                    </Typography>
-              </Paper></Grid>
-              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    CTR
+                  </Typography>
+                </Paper></Grid>
+                <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                  CTR
               <Typography variant="h6" component="h3" >
                     35%
                     </Typography>
-              </Paper></Grid>
-              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    View Retention
+                </Paper></Grid>
+                <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
+                  View Retention
               <Typography variant="h6" component="h3" >
                     {Math.round(viewRate_avg)}%
                     </Typography>
-              </Paper></Grid>
-            </Grid>
+                </Paper></Grid>
+              </Grid>
             </Grid>
           </Grid>
         </div>
-      ))
+      )
     }}
-    </Query>
+  </Query>
 );
-
-
-
-
 
 class VideoDetail extends React.Component {
 
   state = {
     period: '',
     name: '',
-    spacing:'8',
+    spacing: '8',
   };
-
-
-
-
-  componentDidMount() {
-
-  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-    // VideoKpis()
     const { classes } = this.props;
-    
-
     return (
       <div className={classes.root}>
-        {/* {VideoKpis(classes)} */}
-   
         <Grid container spacing={16}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -173,78 +170,31 @@ class VideoDetail extends React.Component {
                   />
                 </FormControl>
               </form>
-
-              {/* ------------------------ */}
-
             </Paper>
-            
-            <VideoKpis {...this.props}/>
-          </Grid>
-          <Grid item xs={6} sm={6}>
-            <Paper className={classes.paperVideoSection}>
-              Video Section!
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={6}>
-            <Grid container spacing={16}>
-                <Grid item xs={12}>
-                    <Paper className={classes.paperValues}>
-                    <Typography variant="h6" component="h3">
-                    Title
-                    </Typography>
-                    <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
-                    <FontAwesomeIcon icon={faYoutube} /><span>   </span>
-                    <FontAwesomeIcon icon={faInstagram} /><span>   </span>
-                    <FontAwesomeIcon icon={faTwitterSquare} />
-                    </Paper>
-                </Grid>
-            <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    Soft Convertion
-              <Typography variant="h6" component="h3" >
-                    1.000/1.200
-                    </Typography>
-              </Paper></Grid>
-              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    Unique Views
-              <Typography variant="h6" component="h3" >
-                    100.000
-                    </Typography>
-              </Paper></Grid>
-              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    CTR
-              <Typography variant="h6" component="h3" >
-                    35%
-                    </Typography>
-              </Paper></Grid>
-              <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
-                    View Retention
-              <Typography variant="h6" component="h3" >
-                    76%
-                    </Typography>
-              </Paper></Grid>
-            </Grid>
-            {/* </Paper> */}
+            <VideoKpis {...this.props} />
           </Grid>
 
           <Grid item xs={12}>
             <Paper className={classes.paperValues}>
-            <FontAwesomeIcon icon={faFacebookF} /><span>  Best perfoming platform</span>
+              <FontAwesomeIcon icon={faFacebookF} /><span>  Best perfoming platform</span>
             </Paper>
-          </Grid> 
+          </Grid>
 
-{/* 
-          <Grid container spacing={24}>
-            <Grid item xs={4} sm={4}><Paper className={classes.paperValues} /></Grid>
-            <Grid item xs={4} sm={4}><Paper className={classes.paperValues} /></Grid>
-            <Grid item xs={4} sm={4}><Paper className={classes.paperValues} /></Grid>
-          </Grid> */}
-        
-          <Grid item xs={12}>
-            <Paper>
+
+          <Grid item xs={3} sm={9}>
+            <Paper className={classes.paperGraph}>
             <BarChart />
             </Paper>
-          </Grid> 
-        
+          </Grid>
+          <Grid item xs={9} sm={3}><Paper className={classes.paperGraph}>
+            
+            </Paper> </Grid>
+
+          {/* <Grid item xs={24}>
+            <Paper>
+              <BarChart />
+            </Paper>
+          </Grid> */}
 
         </Grid>
       </div>

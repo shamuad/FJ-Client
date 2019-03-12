@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+// import { Query } from "react-apollo";
+// import gql from "graphql-tag";
 import TopBar from './components/layout/TopBar'
 import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
 import ApolloClient from "apollo-boost";
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import { ApolloProvider } from "react-apollo";
 
 
@@ -51,7 +51,6 @@ class App extends Component {
           <Route exact path="/clients" component={ClientsPage} />
           <Route exact path="/clients/campaigns" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/video" component={VideoDetail} />
-          <p>test</p>
         </div>
       </Router>
       </ApolloProvider>
