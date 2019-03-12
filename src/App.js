@@ -47,7 +47,7 @@ class App extends Component {
           </nav>
           <Route exact path="/clients" component={ClientsPage} />
           <Route exact path="/clients/campaigns/:id" component={CampaignDetail} />
-          <Route exact path="/clients/campaigns/video" component={VideoDetail} />
+          <Route exact path="/clients/campaigns/:id/video/:id" component={VideoDetail} />
         </div>
       </Router>
       </ApolloProvider>
