@@ -1,12 +1,44 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { Title } from '@devexpress/dx-react-chart-material-ui';
+import {Chart,BarSeries, ArgumentAxis, ValueAxis, Title} from '@devexpress/dx-react-chart-material-ui';
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
-import {
-  Chart,
-  BarSeries,
-  Legend,
-} from '@devexpress/dx-react-chart-material-ui';
+
+const getGraphInfo = (chartData) => (
+  <Query
+    query={gql`
+      {
+        getViewsPerDay(where: {videoId: "8zhv-q8zW1s"})
+        {
+          day,
+          views_sum
+        }
+      }
+    `}
+  >
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+      return  (
+      <Paper>
+      <Chart
+        data={data.getViewsPerDay}
+      >
+        <ArgumentAxis />
+        <ValueAxis max={2000} />
+        <BarSeries
+          valueField="views_sum"
+          argumentField="day"
+        />
+          <Title text="Unique views" />
+      </Chart>
+    </Paper>)
+      ;
+    }}
+  </Query>
+);
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -29,23 +61,13 @@ export default class BarChart extends React.PureComponent {
   }
 
   render() {
-    const { data: chartData, height} = this.state;
-
+    const { data } = this.state;
+  
     return (
-      <Paper>
-        <Chart
-          data={chartData} height={height}
-        >
-          <Legend />
-        <Title
-            text="Unique Views"
-          />
-          <BarSeries
-            valueField="population"
-            argumentField="year"
-          />
-        </Chart>
-      </Paper>
+      <div>
+      {getGraphInfo()}
+      </div>
+    
     );
   }
 }

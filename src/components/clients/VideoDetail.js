@@ -60,6 +60,7 @@ const VideoKpis = (props) => (
             <Grid item xs={6} sm={6}>
               <Grid container spacing={16}>
                 <Grid item xs={12}>
+
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h6">
                       {videoTitle}
