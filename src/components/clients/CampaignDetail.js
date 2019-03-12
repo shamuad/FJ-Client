@@ -19,11 +19,11 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import {Link} from 'react-router-dom'
 
-const CampaignDetails = ({classes}) => (
+const CampaignDetails = ({classes, match}) => (
   <Query 
     query={gql`
-    {
-    getCampaignsDetails(id:"814137338") {
+    query campaignDetails($id: String!) {
+    getCampaignsDetails(id: $id) {
       name
       id
       detail {
@@ -35,15 +35,15 @@ const CampaignDetails = ({classes}) => (
       ads {
         name
         id
-      }
+      } 
     }
     }
-    `}
+    
+    `} variables = {{id: match.params.id}}
   >
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
-        console.log(data.getCampaignsDetails.ads)
       return  (
         <Grid item xs={3} sm={9}>
 
@@ -73,7 +73,7 @@ const CampaignDetails = ({classes}) => (
             Name: {data.getCampaignsDetails.name} 
                 </Typography></Paper></Grid>
            {data.getCampaignsDetails.ads.map(ad => (
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}><Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video/${ad.id}`}>{ad.name}</Link></Paper></Grid>
+              <Grid key= {ad.id} item xs={4} sm={4}><Paper className={classes.paperValues}><Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video/${ad.id}`}>{ad.name}</Link></Paper></Grid>
            ))}     
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
@@ -175,7 +175,7 @@ class CampaignDetail extends React.Component {
           <Grid item xs={3} sm={9}>
 
             {/* <Paper className={classes.paper}> */}
-            <CampaignDetails classes={classes}/>
+            <CampaignDetails {...this.props} classes={classes}/>
           </Grid>
         </Grid>
       </div>

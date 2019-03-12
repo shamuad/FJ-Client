@@ -7,9 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { faInfo} from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
+// import { faInfo} from '@fortawesome/free-solid-svg-icons'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import {Link} from 'react-router-dom'
@@ -86,7 +86,7 @@ function createData(id, name, cCount) {
   return { id, name, cCount };
 }
 
-const rows = []
+// const rows = []
 
 
 
