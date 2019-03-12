@@ -12,6 +12,7 @@ import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faInfo} from '@fortawesome/free-solid-svg-icons'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import {Link} from 'react-router-dom'
 
 
 const CampaignTitles = (props) => (
@@ -48,6 +49,7 @@ const CampaignTitles = (props) => (
         <TableBody>
           {rows.map(row => (
             <TableRow key={row.id}>
+            <Link to={`/clients/campaigns/${row.id}`}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
@@ -58,6 +60,7 @@ const CampaignTitles = (props) => (
                 <FontAwesomeIcon icon={faYoutube} /> */}
               {/* </TableCell> */}
               <TableCell align="right">{row.cCount}</TableCell>
+              </Link>
             </TableRow>
           ))}
         </TableBody>
