@@ -15,6 +15,77 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import styles from './styles'
 import PieChart from './PieChart'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import {Link} from 'react-router-dom'
+
+const CampaignDetails = ({classes}) => (
+  <Query 
+    query={gql`
+    {
+    getCampaignsDetails(id:"814137338") {
+      name
+      id
+      detail {
+        retention
+        cpv
+        ctr
+        unique_views
+      },
+      ads {
+        name
+        id
+      }
+    }
+    }
+    `}
+  >
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+        console.log(data.getCampaignsDetails.ads)
+      return  (
+        <Grid item xs={3} sm={9}>
+
+        {/* <Paper className={classes.paper}> */}
+        <Grid container spacing={24}>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+          <Typography variant="h5" component="h3" >
+                   {data.getCampaignsDetails.detail.unique_views} Unique views
+                </Typography>
+          </Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+          <Typography variant="h5" component="h3" >
+                   {data.getCampaignsDetails.detail.retention}} Retention
+                </Typography>
+          </Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+          <Typography variant="h5" component="h3" >
+                   {data.getCampaignsDetails.detail.cpv}} CPV
+                </Typography>
+                </Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+          <Typography variant="h5" component="h3" >
+                   {data.getCampaignsDetails.detail.ctr} CTR
+                </Typography></Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+          <Typography variant="h5" component="h3" >
+            Name: {data.getCampaignsDetails.name} 
+                </Typography></Paper></Grid>
+           {data.getCampaignsDetails.ads.map(ad => (
+              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}><Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video/${ad.id}`}>{ad.name}</Link></Paper></Grid>
+           ))}     
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
+        </Grid>
+        {/* </Paper> */}
+      </Grid>
+      )
+    }
+  }
+  </Query>
+);
+
 
 class CampaignDetail extends React.Component {
 
@@ -23,8 +94,10 @@ class CampaignDetail extends React.Component {
     name: 'hai',
   };
 
-  componentDidMount() {
 
+
+  componentDidMount() {
+   
   }
 
   handleChange = event => {
@@ -34,9 +107,11 @@ class CampaignDetail extends React.Component {
   render() {
     const { classes } = this.props;
 
+    
 
     return (
       <div className={classes.root}>
+   
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -100,24 +175,7 @@ class CampaignDetail extends React.Component {
           <Grid item xs={3} sm={9}>
 
             {/* <Paper className={classes.paper}> */}
-            <Grid container spacing={24}>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-                <Typography>
-
-                </Typography>
-              </Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-              <Typography variant="h5" component="h3" >
-                        1.000/1.200
-                    </Typography>
-              </Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-            </Grid>
-            {/* </Paper> */}
+            <CampaignDetails classes={classes}/>
           </Grid>
         </Grid>
       </div>
