@@ -10,6 +10,42 @@ import Paper from '@material-ui/core/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faInfo} from '@fortawesome/free-solid-svg-icons'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+
+const CampaignTitles = (props) => (
+  <Query
+    query={gql`
+    {
+    getCampaigns {
+      google{
+        name
+        ads {
+          name
+        }
+      },
+      facebook{
+        name,
+        ads {
+          name
+        }
+      }
+    }
+  }
+    `}
+  >
+  {({ loading, error, data }) => {
+      if (loading) return "Loading...";
+      if (error) return `Error! ${error.message}`;
+      console.log(data)
+      return (
+       null
+      );
+    }}
+  
+  </Query>
+)
 
 const styles = theme => ({
   root: {
@@ -36,12 +72,16 @@ const rows = [
   createData('Quaker Lorem', '%30 Campain Target', '960/1200 leads generated', '', 3.9, 18),
 ];
 
+
+
+
 function CampaignsTable(props) {
   const { classes } = props;
 
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
+      <CampaignTitles />
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
