@@ -7,10 +7,10 @@ import TopBar from './components/layout/TopBar'
 import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
+import CampaignSelectForm from './components/clients/CampaignSelectionWizard/CampaignSelectMainPage'
 import ApolloClient from "apollo-boost";
 // import { render } from "react-dom";
 import { ApolloProvider } from "react-apollo";
-
 
 const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 
@@ -30,10 +30,6 @@ const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 //   })
 //   .then(result => console.log(result));
 
-
-
-
-
   
 class App extends Component {
   render() {
@@ -48,6 +44,7 @@ class App extends Component {
           <Route exact path="/clients" component={ClientsPage} />
           <Route exact path="/clients/campaigns/:id" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/:id/video/:id" component={VideoDetail} />
+          <Route exact path="/selectform" component={CampaignSelectForm} />
         </div>
       </Router>
       </ApolloProvider>
