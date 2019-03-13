@@ -83,10 +83,9 @@ const VideoKpis = (props) => (
             <Grid item xs={6} sm={6}>
               <Grid container spacing={16}>
                 <Grid item xs={12}>
-
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h6">
-                      {data.getVideoAdPerformance.videos[0].name}
+                      {data.getVideoAdPerformance.videos[0].name}<br/>
                       <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
                     <FontAwesomeIcon icon={faYoutube} /><span>   </span>
                     <FontAwesomeIcon icon={faInstagram} /><span>   </span>
@@ -121,8 +120,12 @@ const VideoKpis = (props) => (
                 </Paper></Grid>
               </Grid>
             </Grid>
-            <Grid sm={12}>
-            {data.getVideoAdPerformance.videos.map(video => <VideoDetailsByPlatform key={video.id} {...video}/>)}
+            <Grid container spacing={24}>
+            {data.getVideoAdPerformance.videos.map(video => 
+              <Grid item xs={3} sm={3}>
+                <VideoDetailsByPlatform key={video.id} {...video}/>
+              </Grid>
+              )}
             </Grid>
           </Grid>
         </div>
