@@ -54,7 +54,7 @@ function generate(element) {
     );
 }
 
-class InteractiveList extends React.Component {
+class SelectVideos extends React.Component {
     state = {
 
         dense: false,
@@ -83,8 +83,6 @@ class InteractiveList extends React.Component {
     render() {
         const { classes } = this.props;
         const { dense, secondary } = this.state;
-        console.log(this.state)
-
         
         return (
             <div className={classes.root}>
@@ -169,8 +167,8 @@ class InteractiveList extends React.Component {
     }
 }
 
-InteractiveList.propTypes = {
+SelectVideos.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InteractiveList);
+export default withStyles(styles)(SelectVideos);

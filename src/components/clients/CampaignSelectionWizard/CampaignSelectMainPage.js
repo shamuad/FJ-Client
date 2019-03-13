@@ -13,8 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import SelectCampaign from './CampaignSelectForm1';
 import PaymentForm from './CampaignSelectForm2';
 import Review from './CampaignSelectForm3';
-import { Query } from "react-apollo";
+import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
+import { get } from 'https';
 
 const styles = theme => ({
   appBar: {
@@ -60,13 +61,19 @@ function getStepContent(step, data, state, handleChange, changePosition, positio
     case 0:
       return <SelectCampaign {...data} state={state} handleChange={handleChange}  />;
     case 1:
-      return <Review {...data} state={state} changePosition={changePosition} positions={positions}/>;
+      return <Review {...data} state={state} changePosition={changePosition} positions={positions}gi/>;
     default:
       throw new Error('Unknown step');
   }
 }
 
-class Checkout extends React.Component {
+const submitCampaign = gql`
+  mutation submitCampaign($campaigns: CampaignsInput!, $videos: [VideoAdInput!]) {
+      combineCampaign( campaigns: $campaigns, videos: $videos) 
+    }
+`;
+
+class SubmitAdCampaign extends React.Component {
   state = {
     activeStep: 0,
     facebook: '',
@@ -76,19 +83,41 @@ class Checkout extends React.Component {
 
   }
 
+
+  onSumbit = () => {
+    const campaigns = {
+      name: "Sample Name",
+      facebookCampaignId: this.state.facebook,
+      googleCampaignId: this.state.google
+    }
+
+    const videos = []
+    Object.keys(this.state.positions).map((value, index) => {
+      videos.push({
+        position: parseInt(Object.values(this.state.positions)[index]),
+        videoAdId: value
+      })
+    })
+
+    
+    this.props.mutate({
+      variables: { campaigns, videos }
+    })
+  }
+
   changePosition = (name, value) => {
     this.setState({positions: {...this.state.positions, [name]: value }})
   }
 
   handleChange = event => {
-    console.log(this.state.campaigns)
-    // const selectedAdsF = this.props.getCampaigns.facebook.find(ad => ad.id === this.props.state.facebook).ads
-    // const selectedAdsG = this.props.getCampaigns.google.find(ad => ad.id === this.props.state.google).ads
-
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleNext = () => {
+    if(this.state.activeStep === 1) {
+      this.onSumbit()
+      console.log("testvbb, is this 1?")
+    }
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
@@ -138,10 +167,6 @@ class Checkout extends React.Component {
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
-        console.log(data)
-
-        
-
         return (
         <React.Fragment>
         <CssBaseline />
@@ -200,8 +225,10 @@ class Checkout extends React.Component {
   }
 }
 
-Checkout.propTypes = {
+SubmitAdCampaign.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+const NewEntryWithData = graphql(submitCampaign)(SubmitAdCampaign);
+
+export default withStyles(styles)(NewEntryWithData);

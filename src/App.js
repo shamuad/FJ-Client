@@ -50,7 +50,7 @@ class App extends Component {
           <Route exact path="/clients/campaigns/:id" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/:id/video" component={VideoList} />
           <Route exact path="/clients/campaigns/:id/video/:position" component={VideoDetail} />
-          <Route exact path="/selectform" component={CampaignSelectForm} />
+          <Route exact path="/AddCampaign" component={CampaignSelectForm} />
         </div>
       </Router>
       </ApolloProvider>
