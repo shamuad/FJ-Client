@@ -13,6 +13,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import styles from './styles'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
 
 const ranges = [
   {
@@ -29,66 +32,57 @@ const ranges = [
   },
 ];
 
-class AddressForm extends Component {
-  state = {
-    weight: '',
-    weightRange: '',
-  };
-
-  handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
-  };
+class SelectCampaign extends Component {
 
   render(){
-    const { classes } = this.props;
-  
-  return (
-    <React.Fragment>
-      <Grid container spacing={24}>
-        <Grid item xs={12}>
-        <TextField
-          select
-          className={classNames(classes.margin, classes.textField)}
-          variant="outlined"
-          label="Google Campaign"
-          value={this.state.weightRange}
-          fullWidth
-          onChange={this.handleChange('weightRange')}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">Video</InputAdornment>,
-          }}
-        >
-          {ranges.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </Grid>
-        <Grid item xs={12}>
-        <TextField
-          select
-          className={classNames(classes.margin, classes.textField)}
-          variant="outlined"
-          label="Facebook Campaign"
-          value={this.state.weightRange}
-          fullWidth
-          onChange={this.handleChange('weightRange')}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">Video</InputAdornment>,
-          }}
-        >
-          {ranges.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        </Grid>
-      </Grid>
-    </React.Fragment>
+    const { classes, getCampaigns, state, handleChange} = this.props;
+
+        return (
+          <React.Fragment>
+            <Grid container spacing={24}>
+              <Grid item xs={12}>
+              <TextField
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="Google Campaign"
+                value={state.google}
+                fullWidth
+                name='google'
+                onChange={handleChange}
+           
+              >
+                {getCampaigns.google.map(option => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              </Grid>
+              <Grid item xs={12}>
+              <TextField
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="Facebook Campaign"
+                value={state.facebook}
+                name='facebook'
+                fullWidth
+                onChange={handleChange}
+                
+              >
+                {getCampaigns.facebook.map(option => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              </Grid>
+            </Grid>
+          </React.Fragment>
+
   );
   }
   
 }
-export default withStyles(styles)(AddressForm);
+export default withStyles(styles)(SelectCampaign);
