@@ -24,7 +24,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-const Videos = ({ classes, props }) => (
+
+const Videos = ({ classes, match }) => (
     <Query
         query={gql`
     query campaignDetails($id: String!) {
@@ -48,12 +49,12 @@ const Videos = ({ classes, props }) => (
         video_id
       } 
     }}
-`} variables={{ id: "814137338" }}>
+`} variables={{ id: match.params.id }}>
         {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
             const rows = []
-            data.getCampaignsDetails.map(ads => rows.push(createData(
+            data.getCampaignsDetails.ads.map(ads => rows.push(createData(
                 ads.name,
                 ads.cpv,
                 ads.ctr,
@@ -62,6 +63,7 @@ const Videos = ({ classes, props }) => (
                 ads.retention,
                 ads.id
             )))
+           
             return (
                 <TableBody>
                     {rows.map(row => (
@@ -102,7 +104,7 @@ class VideoList extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.match.params.id)
+        
         return (
             <div className={classes.root}>
                 <br />
@@ -177,7 +179,7 @@ class VideoList extends React.Component {
                                 <TableCell align="right">Retention</TableCell>
                             </TableRow>
                         </TableHead>
-                        <Videos />
+                        <Videos {...this.props} />
                     </Table>
                 </Grid>
             </div>
