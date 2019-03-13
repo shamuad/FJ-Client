@@ -22,23 +22,16 @@ import {Link} from 'react-router-dom'
 const CampaignDetails = ({classes, match}) => (
   <Query 
     query={gql`
-    query campaignDetails($id: String!) {
-    getCampaignsDetails(id: $id) {
-      name
-      id
-      detail {
+    query getCampaignPerformance($id: String!) {
+    getCampaignPerformance(id: $id){
+        id
+        name
+        unique_views
         retention
         cpv
         ctr
-        unique_views
-      },
-      ads {
-        name
-        id
-      } 
+      }
     }
-    }
-    
     `} variables = {{id: match.params.id}}
   >
     {({ loading, error, data }) => {
@@ -47,7 +40,7 @@ const CampaignDetails = ({classes, match}) => (
       return  (
         <div>
         <Typography variant="h4" component="h6" >
-            Campaign: {data.getCampaignsDetails.name}
+            Campaign: {data.getCampaignPerformance.name}
          </Typography>
         <Grid item xs={3} sm={9}>
         {/* <Paper className={classes.paper}> */}
@@ -55,27 +48,27 @@ const CampaignDetails = ({classes, match}) => (
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                  Unique views
           <Typography variant="h3" component="h3" >
-                  {Math.round(data.getCampaignsDetails.detail.unique_views)}
+                  {Math.round(data.getCampaignPerformance.unique_views)}
                 </Typography>
           </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                 Retention
             <Typography variant="h3" component="h3" >
-                {Math.floor(data.getCampaignsDetails.detail.retention)}%
+                {Math.floor(data.getCampaignPerformance.retention)}%
                 </Typography>
           </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                 CPV 
           <Typography variant="h3" component="h3" >
-                   € {parseFloat(data.getCampaignsDetails.detail.cpv).toFixed(2)}
+                   € {parseFloat(data.getCampaignPerformance.cpv).toFixed(2)}
                 </Typography>
                 </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                 CTR 
           <Typography variant="h3" component="h3" >
-                € {parseFloat(data.getCampaignsDetails.detail.ctr).toFixed(2)}
+                € {parseFloat(data.getCampaignPerformance.ctr).toFixed(2)}
                 </Typography></Paper></Grid>
-                {<Grid item xs={0.5} sm={9}><Link to={`/clients/campaigns/${data.getCampaignsDetails.id}/video`}>
+                {<Grid item xs={0.5} sm={9}><Link to={`/clients/campaigns/${data.getCampaignPerformance.id}/video`}>
            <Paper>Videos for this campaign: 
                <br/>
                </Paper></Link></Grid>
