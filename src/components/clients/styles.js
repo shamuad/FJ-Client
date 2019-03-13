@@ -44,8 +44,18 @@ const styles = theme => ({
         textAlign: 'left',
         color: theme.palette.text.secondary,
         margin: '1em 1em 0em 1em',
-        height: 93,
+        height: 60,
     },
+
+    paperValuesPerPlatform: {
+        padding: theme.spacing.unit * 1,
+        textAlign: 'left',
+        color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
+        height: 420,
+        width: 300
+    },
+
     paperVideoSection: {
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
