@@ -31,6 +31,7 @@ const VideoKpis = (props) => (
           spend
           retention
           videos {
+            video_id
             retention
             ctr
             id
@@ -72,7 +73,7 @@ const VideoKpis = (props) => (
                   <iframe width="560" height="315"
                     src={`https://www.youtube.com/embed/${video_id}`}
                     
-                    // src={`https://www.facebook.com/watch/?v=${video_id}`}
+                    // src={`https://www.facebook.com/watch/?v=${data.getVideoAdPerformance.videos[0].video_id}`}
                     
                     title={name}>
                   </iframe>
@@ -85,7 +86,7 @@ const VideoKpis = (props) => (
 
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h6">
-                      {name}
+                      {data.getVideoAdPerformance.videos[0].name}
                       <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
                     <FontAwesomeIcon icon={faYoutube} /><span>   </span>
                     <FontAwesomeIcon icon={faInstagram} /><span>   </span>
