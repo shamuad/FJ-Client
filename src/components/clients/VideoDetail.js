@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faYoutube, faInstagram, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import VideoDetailsByPlatform from './VideoDetailsByPlatform'
 import './video.css';
 
 const VideoKpis = (props) => (
@@ -77,11 +78,12 @@ const VideoKpis = (props) => (
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h6">
                       {name}
-                    </Typography>
-                    <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
+                      <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
                     <FontAwesomeIcon icon={faYoutube} /><span>   </span>
                     <FontAwesomeIcon icon={faInstagram} /><span>   </span>
                     <FontAwesomeIcon icon={faTwitterSquare} />
+                    </Typography>
+                  
                   </Paper>
                 </Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
@@ -189,10 +191,11 @@ class VideoDetail extends React.Component {
 
           <Grid item xs={12}>
             <Paper className={classes.paperValues}>
-              <FontAwesomeIcon icon={faFacebookF} /><span>  Best perfoming platform</span>
+              <FontAwesomeIcon icon={faFacebookF} /><span> Best perfoming platform</span>
             </Paper>
+        
           </Grid>
-
+       
 
           {/* <Grid item xs={3} sm={9}>
             <Paper className={classes.paperGraph}>
@@ -210,6 +213,7 @@ class VideoDetail extends React.Component {
           </Grid> */}
 
         </Grid>
+        <VideoDetailsByPlatform />
       </div>
     );
   }
