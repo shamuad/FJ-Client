@@ -55,11 +55,6 @@ const CampaignTitles = (props) => (
               </TableCell>
               </Link>
               <TableCell align="right">{row.id}</TableCell>
-              {/* <TableCell align="right"><FontAwesomeIcon icon={faInfo} />  {row.info}</TableCell>
-              <TableCell align="right">
-                <FontAwesomeIcon icon={faFacebookF} /><span>  </span>
-                <FontAwesomeIcon icon={faYoutube} />
-              </TableCell> */}
               <TableCell align="right">{row.cCount}</TableCell>
             </TableRow>
           ))}
