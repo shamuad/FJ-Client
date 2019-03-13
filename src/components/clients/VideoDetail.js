@@ -23,26 +23,32 @@ const VideoKpis = (props) => (
   <Query
    
     query={gql`
-    
-      query videoDetails($id: String!) {
-        getVideoDetails(id: $id) {
+      query getCampaignPerformance($id: String!) {
+        getCampaignPerformance(id: $id){
           id
           name
+          unique_views
+          retention
           cpv
           ctr
-          unique_view
-          spend
-          retention
-          video_id
-          thumbnails
+          videoAdPerformance{
+            unique_views
+            retention
+            cpv
+            ctr
+            spend
+            videos {
+              id
+            }
+          }
         }
-      
-      }
-    `}variables={{id: props.match.params.id}}
+        }
+    `} variables={{id: props.match.params.id}}
   >
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
+      console.log(data)
       const { classes } = props;
       const {
         // id,
@@ -54,7 +60,7 @@ const VideoKpis = (props) => (
         retention,
         video_id,
         // thumbnails 
-          } = data.getVideoDetails
+          } = data.getCampaignPerformance
       return (
         <div>
           <Grid container spacing={16}>

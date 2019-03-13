@@ -17,45 +17,31 @@ import {Link} from 'react-router-dom'
 
 const CampaignTitles = (props) => (
   <Query
-    query={gql`
-    {
-    getCampaigns {
-      google{
-        id
-        name
-        ads {
-          name
-        }
-      },
-      facebook{
-        id
-        name,
-        ads {
-          name
-        }
+    query={gql`{
+    getAllCampaignPerformance{
+      id
+      name
+      videoAdPerformance{
+        unique_views
       }
     }
   }
-    `}
+`}
   >
   {({ loading, error, data }) => {
       if (loading) return "Loading...";
       if (error) return `Error! ${error.message}`;
-
-      const rows = []
-      data.getCampaigns.google.map(campaign => rows.push(createData(campaign.id,campaign.name, campaign.ads.length)))
-      data.getCampaigns.facebook.map(campaign => rows.push(createData(campaign.id,campaign.name, campaign.ads.length)))
       return (
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
-            <Link to={`/clients/campaigns/${row.id}`}>
+          {data.getAllCampaignPerformance.map(campaign => (
+            <TableRow key={campaign.id}>
+            <Link to={`/clients/campaigns/${campaign.id}`}>
               <TableCell  align="left" component="th" scope="row">
-                {row.name}
+                {campaign.name}
               </TableCell>
               </Link>
-              <TableCell align="right">{row.id}</TableCell>
-              <TableCell align="right">{row.cCount}</TableCell>
+              <TableCell align="right">{campaign.id}</TableCell>
+              <TableCell align="right">{campaign.videoAdPerformance.length}</TableCell>
             </TableRow>
           ))}
         </TableBody>

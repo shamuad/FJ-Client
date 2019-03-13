@@ -28,57 +28,56 @@ import TableRow from '@material-ui/core/TableRow';
 const Videos = ({ classes, match }) => (
     <Query
         query={gql`
-    query campaignDetails($id: String!) {
-    getCampaignsDetails(id: $id) {
-      name
-      id
-      detail {
-        retention
-        cpv
-        ctr
-        unique_views
-      },
-      ads {
-        id
-        name
-        cpv
-        ctr
-        unique_view
-        spend
-        retention
-        video_id
-      } 
-    }}
+        query getCampaignPerformance($id: String!) {
+            getCampaignPerformance(id: $id){
+              id
+              name
+              unique_views
+              retention
+              cpv
+              ctr
+              videoAdPerformance{
+                unique_views
+                retention
+                cpv
+                ctr
+                spend
+                videos {
+                    name
+                    id
+                }
+              }
+            }
+            }
 `} variables={{ id: match.params.id }}>
         {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
+            console.log(data)
             const rows = []
-            data.getCampaignsDetails.ads.map(ads => rows.push(createData(
-                ads.name,
-                ads.cpv,
-                ads.ctr,
-                ads.unique_view,
-                ads.spend,
-                ads.retention,
-                ads.id
+            data.getCampaignPerformance.videoAdPerformance.map(video => rows.push(createData(
+                video.videos[0].name,
+                video.cpv,
+                video.ctr,
+                video.unique_views,
+                video.spend,
+                video.retention
+                
             )))
            
             return (
                 <TableBody>
                     {rows.map(row => (
-                        <TableRow key={row.id}>
+                        <TableRow key={row.retention}>
 
-                            <Link to={`/clients/campaigns/814137338/video/${row.id}`}>
-                                <TableCell align="left" component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
+                            <Link to={`/clients/campaigns/${match.params.id}}/video/${row.id}`}>
+                            <TableCell align="right">{row.name}</TableCell>
                             </Link>
                             <TableCell align="right">€{parseFloat(row.cpv).toFixed(2)}</TableCell>
                             <TableCell align="right">€{parseFloat(row.ctr).toFixed(2)}</TableCell>
-                            <TableCell align="right">{row.unique_view}</TableCell>
+                            <TableCell align="right">{row.unique_views}</TableCell>
                             <TableCell align="right">€{parseFloat(row.spend).toFixed(2)}</TableCell>
-                            <TableCell align="right">{Math.floor(row.retention)}%</TableCell>
+                            <TableCell align="right">{Number(row.retention)}%</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -88,8 +87,8 @@ const Videos = ({ classes, match }) => (
 );
 
 function createData(
-    name, cpv, ctr, unique_view, spend, retention, id) {
-    return { name, cpv, ctr, unique_view, spend, retention, id };
+    name, cpv, ctr, unique_views, spend, retention) {
+    return {name, cpv, ctr, unique_views, spend, retention};
 }
 
 class VideoList extends React.Component {
@@ -171,7 +170,7 @@ class VideoList extends React.Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="right">Name</TableCell>
+                                <TableCell align="right">NAME</TableCell>
                                 <TableCell align="right">CPV</TableCell>
                                 <TableCell align="right">CTR</TableCell>
                                 <TableCell align="right">Unique Views</TableCell>
