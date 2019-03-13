@@ -14,39 +14,40 @@ import Grid from '@material-ui/core/Grid';
 class VideoDetailsByPlatform extends React.Component {
 
     render(){
-        const { classes } = this.props;
+        const { classes , id, cpv, ctr, name, unique_views, spend, retention,  platform} = this.props;
+        console.log(this.props)
         return  (
-            <Grid container spacing={12}  
+            <Grid xs={4} container spacing={12}  
                 direction="row"
                 justify="left"
                 alignItems="left">
                 <Paper className={classes.paperValuesPerPlatform}>
                 <br/>
                 <Typography variant="h5" component="h3" >
-                        Platform
+                        {platform}
                     </Typography>
                 <Grid item sm={12}><Paper className={classes.paperValues}>
                         Unique views
                         <Typography variant="h6" component="h3" >
-                            some code
+                            {unique_views}
                         </Typography>
                     </Paper></Grid>
                 <Grid item sm={12}><Paper className={classes.paperValues}>
-                        CPR
+                        CPV
                     <Typography variant="h6" component="h3" >
-                        some code
+                        {cpv}
                     </Typography>
                     </Paper></Grid>
                 <Grid item sm={12}><Paper className={classes.paperValues}>
-                        CPV
+                        CTR
                 <Typography variant="h6" component="h3" >
-                        some code
+                        {ctr}
                 </Typography>
                     </Paper></Grid>
             <Grid item sm={12}><Paper className={classes.paperValues}>
-                        Unique views
+                       View retention
                 <Typography variant="h6" component="h3" >
-                    view rention
+                    {retention}
                 </Typography>
                     </Paper></Grid>
                 </Paper>
