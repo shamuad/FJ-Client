@@ -7,19 +7,20 @@ import TopBar from './components/layout/TopBar'
 import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
+import VideoList from './components/clients/VideoList'
 import ApolloClient from "apollo-boost";
 // import { render } from "react-dom";
 import { ApolloProvider } from "react-apollo";
 
 
-const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
+const client = new ApolloClient({ uri: 'http://localhost:4000' });
 
 // client
 //   .query({
 //     query: gql`
 //     {
 //       getVideoKpis {
-//         videoTitle,
+//         videoTitle,s
 //         campaign,
 //         impressions_sum
 //         views_sum
@@ -47,6 +48,7 @@ class App extends Component {
           </nav>
           <Route exact path="/clients" component={ClientsPage} />
           <Route exact path="/clients/campaigns/:id" component={CampaignDetail} />
+          <Route exact path="/clients/campaigns/:id/video" component={VideoList} />
           <Route exact path="/clients/campaigns/:id/video/:id" component={VideoDetail} />
         </div>
       </Router>
