@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
+import Button from '@material-ui/core/Button'
 // import ReactDOM from 'react-dom';
 // import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -109,6 +109,9 @@ class CampaignDetail extends React.Component {
 
     return (
       <div className={classes.root}>
+       <Button variant="contained" className={classes.button}>
+        Add campaign
+      </Button>
       <br/>
         <Grid ontainer spacing={24}>
         <Grid item xs={20}> 

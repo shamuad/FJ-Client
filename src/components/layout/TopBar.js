@@ -199,7 +199,7 @@ class TopBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <Button color="inherit">Clients</Button>
+              <Button link to={'/clients'} color="inherit">Clients</Button>
               <Button color="inherit">Campaigns</Button>
               <Button color="inherit">Reports</Button>
               <IconButton color="inherit">

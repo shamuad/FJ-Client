@@ -1,6 +1,9 @@
 import red from '@material-ui/core/colors/red';
 
 const styles = theme => ({
+    navBarClient: {
+        textAlign: 'right'
+    },
     card: {
         maxWidth: '100%',
         textAlign: 'left',

@@ -37,6 +37,7 @@ const Videos = ({ classes, match }) => (
               cpv
               ctr
               videoAdPerformance{
+                position
                 unique_views
                 retention
                 cpv
@@ -56,12 +57,14 @@ const Videos = ({ classes, match }) => (
             console.log(data)
             const rows = []
             data.getCampaignPerformance.videoAdPerformance.map(video => rows.push(createData(
+                video.position,
                 video.videos[0].name,
                 video.cpv,
                 video.ctr,
                 video.unique_views,
                 video.spend,
                 video.retention
+                
                 
             )))
            
@@ -70,7 +73,7 @@ const Videos = ({ classes, match }) => (
                     {rows.map(row => (
                         <TableRow key={row.retention}>
 
-                            <Link to={`/clients/campaigns/${match.params.id}}/video/${row.id}`}>
+                            <Link to={`/clients/campaigns/${match.params.id}/video/${row.position}`}>
                             <TableCell align="right">{row.name}</TableCell>
                             </Link>
                             <TableCell align="right">€{parseFloat(row.cpv).toFixed(2)}</TableCell>
@@ -87,8 +90,8 @@ const Videos = ({ classes, match }) => (
 );
 
 function createData(
-    name, cpv, ctr, unique_views, spend, retention) {
-    return {name, cpv, ctr, unique_views, spend, retention};
+   position, name, cpv, ctr, unique_views, spend, retention) {
+    return {position, name, cpv, ctr, unique_views, spend, retention};
 }
 
 class VideoList extends React.Component {

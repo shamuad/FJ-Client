@@ -7,7 +7,6 @@ import TopBar from './components/layout/TopBar'
 import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
-
 import VideoList from './components/clients/VideoList'
 import CampaignSelectForm from './components/clients/CampaignSelectionWizard/CampaignSelectMainPage'
 
@@ -50,7 +49,7 @@ class App extends Component {
           <Route exact path="/clients" component={ClientsPage} />
           <Route exact path="/clients/campaigns/:id" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/:id/video" component={VideoList} />
-          <Route exact path="/clients/campaigns/:id/video/:id" component={VideoDetail} />
+          <Route exact path="/clients/campaigns/:id/video/:position" component={VideoDetail} />
           <Route exact path="/selectform" component={CampaignSelectForm} />
         </div>
       </Router>

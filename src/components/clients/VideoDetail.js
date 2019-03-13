@@ -23,31 +23,33 @@ const VideoKpis = (props) => (
   <Query
    
     query={gql`
-      query getCampaignPerformance($id: String!) {
-        getCampaignPerformance(id: $id){
-          id
-          name
+      query getVideoAdPerformance($position: Int! $id: String!) {
+        getVideoAdPerformance(position: $position id: $id){
           unique_views
-          retention
           cpv
           ctr
-          videoAdPerformance{
-            unique_views
+          spend
+          retention
+          videos {
             retention
-            cpv
             ctr
+            id
+            name
+            cpv
+            unique_views
             spend
-            videos {
-              id
-            }
+            platform
+            thumbnails
           }
         }
-        }
-    `} variables={{id: props.match.params.id}}
+      }
+    `} variables={{position: parseInt(props.match.params.position) , id: props.match.params.id}}
   >
     {({ loading, error, data }) => {
+      console.log(props.match.params.id)
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
+      console.log(error)
       console.log(data)
       const { classes } = props;
       const {
@@ -55,12 +57,12 @@ const VideoKpis = (props) => (
         name,
         cpv,
         ctr,
-        unique_view,
+        unique_views,
         // spend,
         retention,
         video_id,
         // thumbnails 
-          } = data.getCampaignPerformance
+          } = data.getVideoAdPerformance
       return (
         <div>
           <Grid container spacing={16}>
@@ -101,7 +103,7 @@ const VideoKpis = (props) => (
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   Unique Views
               <Typography variant="h6" component="h3" >
-                    {unique_view}
+                    {unique_views}
                   </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
@@ -117,6 +119,9 @@ const VideoKpis = (props) => (
                     </Typography>
                 </Paper></Grid>
               </Grid>
+            </Grid>
+            <Grid sm={12}>
+            {data.getVideoAdPerformance.videos.map(video => <VideoDetailsByPlatform key={video.id} {...video}/>)}
             </Grid>
           </Grid>
         </div>
@@ -219,7 +224,7 @@ class VideoDetail extends React.Component {
           </Grid> */}
 
         </Grid>
-        <VideoDetailsByPlatform />
+      
       </div>
     );
   }
