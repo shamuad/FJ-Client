@@ -31,3 +31,8 @@
     transform: rotate(360deg);
   }
 }
+
+
+.MuiStepIcon-root-195.MuiStepIcon-active-197 {
+  color: red;
+}

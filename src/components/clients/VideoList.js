@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import ReactDOM from 'react-dom';
-// import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import styles from './styles'
-// import PieChart from './PieChart'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Link } from 'react-router-dom'
@@ -23,7 +18,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
 
 const Videos = ({ classes, match }) => (
     <Query
@@ -54,7 +48,6 @@ const Videos = ({ classes, match }) => (
         {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
-            console.log(data)
             const rows = []
             data.getCampaignPerformance.videoAdPerformance.map(video => rows.push(createData(
                 video.position,
@@ -64,8 +57,6 @@ const Videos = ({ classes, match }) => (
                 video.unique_views,
                 video.spend,
                 video.retention
-
-
             )))
 
             return (
@@ -79,7 +70,7 @@ const Videos = ({ classes, match }) => (
                             <TableCell align="left">€{parseFloat(row.ctr).toFixed(2)}</TableCell>
                             <TableCell align="left">{row.unique_views}</TableCell>
                             <TableCell align="left">€{parseFloat(row.spend).toFixed(2)}</TableCell>
-                            <TableCell align="left">{Number(row.retention)}%</TableCell>
+                            <TableCell align="left">{Math.round(Number(row.retention))}%</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -108,12 +99,7 @@ class VideoList extends React.Component {
 
         return (
             <div className={classes.root}>
-                <br />
-                <Grid container spacing={24}>
-                    <Grid>
-                        <Link to={"/clients"}>All campaigns</Link>
-                    </Grid>
-                </Grid>
+                <br />               
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>

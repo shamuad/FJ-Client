@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import './App.css';
 // import { Query } from "react-apollo";
 // import gql from "graphql-tag";
@@ -51,6 +51,7 @@ class App extends Component {
           <Route exact path="/clients/campaigns/:id/video" component={VideoList} />
           <Route exact path="/clients/campaigns/:id/video/:position" component={VideoDetail} />
           <Route exact path="/AddCampaign" component={AddCampaignContainer} />
+          <Route exact path="/" render={() => <Redirect to="/clients" />} />
         </div>
       </Router>
       </ApolloProvider>

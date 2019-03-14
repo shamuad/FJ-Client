@@ -12,9 +12,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import CampaignsTable from './CampaignsTable'
 import 'typeface-roboto';
 import styles from './styles'
+import Campaigns from '../Campaigns'
 
 class ActiveClient extends React.Component {
   state = { expanded: false };
@@ -42,7 +42,7 @@ class ActiveClient extends React.Component {
             </IconButton>
           }
           title="Company Name"
-          subheader="4 Active Campaign"
+          subheader="Active Campaign"
         />
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton
@@ -58,7 +58,7 @@ class ActiveClient extends React.Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-              <CampaignsTable />
+              <Campaigns/>
           </CardContent>
         </Collapse>
       </Card>
