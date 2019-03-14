@@ -72,15 +72,16 @@ const Videos = ({ classes, match }) => (
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.retention}>
-
-                            <Link to={`/clients/campaigns/${match.params.id}/video/${row.position}`}>
-                            <TableCell align="right">{row.name}</TableCell>
-                            </Link>
-                            <TableCell align="right">€{parseFloat(row.cpv).toFixed(2)}</TableCell>
-                            <TableCell align="right">€{parseFloat(row.ctr).toFixed(2)}</TableCell>
-                            <TableCell align="right">{row.unique_views}</TableCell>
-                            <TableCell align="right">€{parseFloat(row.spend).toFixed(2)}</TableCell>
-                            <TableCell align="right">{Number(row.retention)}%</TableCell>
+                            <Typography variant="overline" gutterBottom>
+                                <Link className={classes.link} to={`/clients/campaigns/${match.params.id}/video/${row.position}`}>
+                                <TableCell align="left">{row.name}</TableCell>
+                                </Link>
+                            </Typography>
+                            <TableCell align="left">€{parseFloat(row.cpv).toFixed(2)}</TableCell>
+                            <TableCell align="left">€{parseFloat(row.ctr).toFixed(2)}</TableCell>
+                            <TableCell align="left">{row.unique_views}</TableCell>
+                            <TableCell align="left">€{parseFloat(row.spend).toFixed(2)}</TableCell>
+                            <TableCell align="left">{Number(row.retention)}%</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -170,19 +171,21 @@ class VideoList extends React.Component {
 
                         </Paper>
                     </Grid>
+                    <Paper className={classes.rootForTable}>
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="right">NAME</TableCell>
-                                <TableCell align="right">CPV</TableCell>
-                                <TableCell align="right">CTR</TableCell>
-                                <TableCell align="right">Unique Views</TableCell>
-                                <TableCell align="right">Spend</TableCell>
-                                <TableCell align="right">Retention</TableCell>
+                                <TableCell align="left">NAME</TableCell>
+                                <TableCell align="left">CPV</TableCell>
+                                <TableCell align="left">CTR</TableCell>
+                                <TableCell align="left">Unique Views</TableCell>
+                                <TableCell align="left">Spend</TableCell>
+                                <TableCell align="left">Retention</TableCell>
                             </TableRow>
                         </TableHead>
                         <Videos {...this.props} />
                     </Table>
+                    </Paper>
                 </Grid>
             </div>
         );

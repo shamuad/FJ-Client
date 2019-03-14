@@ -1,15 +1,9 @@
-
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
-
-
-
-
 
 class VideoDetailsByPlatform extends React.Component {
 
@@ -23,31 +17,31 @@ class VideoDetailsByPlatform extends React.Component {
                 alignItems="left">
                 <Paper className={classes.paperValuesPerPlatform}>
                 <br/>
-                <Typography variant="h5" component="h3" >
+                <Typography variant="h6" component="h3" >
                         {platform}
                     </Typography>
-                <Grid item sm={12}><Paper className={classes.paperValues}>
+                <Grid item sm={12}><Paper className={classes.paperCompareValues}>
                         Unique views
                         <Typography variant="h6" component="h3" >
                             {unique_views}
                         </Typography>
                     </Paper></Grid>
-                <Grid item sm={12}><Paper className={classes.paperValues}>
+                <Grid item sm={12}><Paper className={classes.paperCompareValues}>
                         CPV
                     <Typography variant="h6" component="h3" >
-                        {cpv}
+                    € {parseFloat(cpv).toFixed(2)}
                     </Typography>
                     </Paper></Grid>
-                <Grid item sm={12}><Paper className={classes.paperValues}>
+                <Grid item sm={12}><Paper className={classes.paperCompareValues}>
                         CTR
                 <Typography variant="h6" component="h3" >
-                        {ctr}
+                € {parseFloat(ctr).toFixed(2)}
                 </Typography>
                     </Paper></Grid>
-            <Grid item sm={12}><Paper className={classes.paperValues}>
+            <Grid item sm={12}><Paper className={classes.paperCompareValues}>
                        View retention
                 <Typography variant="h6" component="h3" >
-                    {retention}
+                    {Math.floor(retention)}%
                 </Typography>
                     </Paper></Grid>
                 </Paper>

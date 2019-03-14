@@ -29,6 +29,17 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
+
+    rootForTable: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+      },
+      
+      table: {
+        minWidth: 700,
+      },
+
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 220,
@@ -49,10 +60,18 @@ const styles = theme => ({
         margin: '1em 1em 0em 1em',
         height: 60,
     },
+    paperCompareValues: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        margin: '1em 1em 0em 1em',
+        height: 45,
+        width: 200
+    },
 
     paperValuesPerPlatform: {
         padding: theme.spacing.unit * 1,
-        textAlign: 'left',
+        textAlign: 'center',
         color: theme.palette.text.secondary,
         margin: '1em 1em 0em 1em',
         height: 420,
@@ -78,6 +97,10 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200,
     },
+    link: {
+        margin: theme.spacing.unit,
+        textDecoration: 'none'
+      },
     
 });
 
