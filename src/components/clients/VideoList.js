@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
+import Button from '@material-ui/core/Button';
 // import ReactDOM from 'react-dom';
 // import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -23,7 +23,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
 
 const Videos = ({ classes, match }) => (
     <Query
@@ -64,19 +63,15 @@ const Videos = ({ classes, match }) => (
                 video.unique_views,
                 video.spend,
                 video.retention
-                
-                
             )))
-           
+
             return (
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.retention}>
-                            <Typography variant="overline" gutterBottom>
-                                <Link className={classes.link} to={`/clients/campaigns/${match.params.id}/video/${row.position}`}>
-                                <TableCell align="left">{row.name}</TableCell>
-                                </Link>
-                            </Typography>
+                            <TableCell align="left">
+                                <Button component={Link} to={`/clients/campaigns/${match.params.id}/video/${row.position}`} color="inherit">{row.name}</Button>
+                            </TableCell>
                             <TableCell align="left">€{parseFloat(row.cpv).toFixed(2)}</TableCell>
                             <TableCell align="left">€{parseFloat(row.ctr).toFixed(2)}</TableCell>
                             <TableCell align="left">{row.unique_views}</TableCell>
@@ -91,8 +86,8 @@ const Videos = ({ classes, match }) => (
 );
 
 function createData(
-   position, name, cpv, ctr, unique_views, spend, retention) {
-    return {position, name, cpv, ctr, unique_views, spend, retention};
+    position, name, cpv, ctr, unique_views, spend, retention) {
+    return { position, name, cpv, ctr, unique_views, spend, retention };
 }
 
 class VideoList extends React.Component {
@@ -107,7 +102,7 @@ class VideoList extends React.Component {
 
     render() {
         const { classes } = this.props;
-        
+
         return (
             <div className={classes.root}>
                 <br />
@@ -172,19 +167,19 @@ class VideoList extends React.Component {
                         </Paper>
                     </Grid>
                     <Paper className={classes.rootForTable}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="left">NAME</TableCell>
-                                <TableCell align="left">CPV</TableCell>
-                                <TableCell align="left">CTR</TableCell>
-                                <TableCell align="left">Unique Views</TableCell>
-                                <TableCell align="left">Spend</TableCell>
-                                <TableCell align="left">Retention</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <Videos {...this.props} />
-                    </Table>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="left">NAME</TableCell>
+                                    <TableCell align="left">CPV</TableCell>
+                                    <TableCell align="left">CTR</TableCell>
+                                    <TableCell align="left">Unique Views</TableCell>
+                                    <TableCell align="left">Spend</TableCell>
+                                    <TableCell align="left">Retention</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <Videos {...this.props} />
+                        </Table>
                     </Paper>
                 </Grid>
             </div>

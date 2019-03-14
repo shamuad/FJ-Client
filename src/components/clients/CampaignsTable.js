@@ -10,7 +10,18 @@ import Paper from '@material-ui/core/Paper';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import {Link} from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+});
 
 const CampaignTitles = (props) => (
   <Query
@@ -32,11 +43,9 @@ const CampaignTitles = (props) => (
         <TableBody>
           {data.getAllCampaignPerformance.map(campaign => (
             <TableRow key={campaign.id}>
-            <Link to={`/clients/campaigns/${campaign.id}`}>
               <TableCell  align="left" component="th" scope="row">
-                {campaign.name}
+              <Button component={Link} to={`/clients/campaigns/${campaign.id}`} color="inherit">{campaign.name}</Button>
               </TableCell>
-              </Link>
               <TableCell align="right">{campaign.id}</TableCell>
               <TableCell align="right">{campaign.videoAdPerformance.length}</TableCell>
             </TableRow>
@@ -47,18 +56,6 @@ const CampaignTitles = (props) => (
   
   </Query>
 )
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-});
-
 
 function createData(id, name, cCount) {
   return { id, name, cCount };

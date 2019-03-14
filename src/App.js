@@ -8,7 +8,7 @@ import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
 import VideoList from './components/clients/VideoList'
-import CampaignSelectForm from './components/clients/CampaignSelectionWizard/CampaignSelectMainPage'
+import AddCampaignContainer from './components/clients/AddCampaignWizzard/AddCampaigncontainer'
 
 import ApolloClient from "apollo-boost";
 // import { render } from "react-dom";
@@ -50,7 +50,7 @@ class App extends Component {
           <Route exact path="/clients/campaigns/:id" component={CampaignDetail} />
           <Route exact path="/clients/campaigns/:id/video" component={VideoList} />
           <Route exact path="/clients/campaigns/:id/video/:position" component={VideoDetail} />
-          <Route exact path="/AddCampaign" component={CampaignSelectForm} />
+          <Route exact path="/AddCampaign" component={AddCampaignContainer} />
         </div>
       </Router>
       </ApolloProvider>

@@ -4,18 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -46,14 +40,6 @@ const styles = theme => ({
     },
 });
 
-function generate(element) {
-    return [0, 1, 2].map(value =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
-
 class SelectVideos extends React.Component {
     state = {
 
@@ -65,15 +51,30 @@ class SelectVideos extends React.Component {
     };
 
     componentDidMount(){
-        const selectedAdsF = this.props.getCampaigns.facebook.find(ad => ad.id === this.props.state.facebook).ads
-        const selectedAdsG = this.props.getCampaigns.google.find(ad => ad.id === this.props.state.google).ads
+        let selectedAdsF = this.props.getCampaigns.facebook.find(ad => ad.id === this.props.state.facebook)
+        let selectedAdsG = this.props.getCampaigns.google.find(ad => ad.id === this.props.state.google)
         
-        const positions = {}
-        selectedAdsF.map((video) => this.props.changePosition(video.id, ''))
-        selectedAdsG.map((video) => this.props.changePosition(video.id, ''))
+        if(selectedAdsF && selectedAdsF.ads) {
+            selectedAdsF = selectedAdsF.ads
+        } else {
+            selectedAdsF = []
+        }
 
+        if(selectedAdsG && selectedAdsG.ads) {
+            selectedAdsG = selectedAdsG.ads
+        } else {
+            selectedAdsG =[]
+        }
+
+        const positions = {}
+
+        if(selectedAdsF) {
+            selectedAdsF.map((video) => this.props.changePosition(video.id, ''))
+        }
+        if(selectedAdsG) {
+            selectedAdsG.map((video) => this.props.changePosition(video.id, ''))
+        }
         this.setState({selectedAdsFacebook : selectedAdsF, selectedAdsGoogle: selectedAdsG, positions})
-        
     }
 
     onChange = (event) => {
@@ -87,9 +88,12 @@ class SelectVideos extends React.Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={16}>
-                    <Grid item xs={12} md={6}>
+                <Typography variant="h6" className={classes.title}>
+                        Please, fill in the same number to identify the same videos on both platforms
+                        </Typography>
+                <Grid item xs={12} md={12}>
                         <Typography variant="h6" className={classes.title}>
-                            Facebook Campaign
+                            Facebook video's
                         </Typography>
                         <div className={classes.demo}>
                             <List dense={dense}>
@@ -121,11 +125,9 @@ class SelectVideos extends React.Component {
                             </List>
                         </div>
                     </Grid>
-
-
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={12}>
                         <Typography variant="h6" className={classes.title}>
-                            Google Campaign
+                            Google video's
                         </Typography>
                         <div className={classes.demo}>
                             <List dense={dense}>
@@ -156,13 +158,8 @@ class SelectVideos extends React.Component {
                             </List>
                         </div>
                     </Grid>
-
-
                 </Grid>
             </div>
-
-
-
         );
     }
 }
