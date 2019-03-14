@@ -15,9 +15,7 @@ class ClientsPage extends Component {
         return (
             <div>
                 <Grid className={classes.navBarClient}>
-                    <Button><Link to="/AddCampaign">Start new campaign</Link></Button>
-                    <Button>Add new client</Button>
-                    <Button>Campaigns</Button>
+                    <Button><Link to="/AddCampaign">Add Campaign</Link></Button>
                 </Grid>
                 <ActiveClient />
                 <SleepingClient />

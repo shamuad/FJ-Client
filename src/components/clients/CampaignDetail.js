@@ -109,15 +109,8 @@ class CampaignDetail extends React.Component {
 
     return (
       <div className={classes.root}>
-       <Button variant="contained" className={classes.button}>
-        Add campaign
-      </Button>
+
       <br/>
-        <Grid ontainer spacing={24}>
-        <Grid item xs={20}> 
-              <Link to={"/clients"}>All campaigns</Link>
-            </Grid>
-        </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
