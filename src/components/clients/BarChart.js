@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { Title } from '@devexpress/dx-react-chart-material-ui';
 import {Chart,BarSeries, ArgumentAxis, ValueAxis, Title} from '@devexpress/dx-react-chart-material-ui';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";

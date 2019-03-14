@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ActiveClient from './ActiveClient'
 import SleepingClient from './SleepingClient'
+import { withStyles } from '@material-ui/core/styles';
+import styles from './styles'
 
 class ClientsPage extends Component {
 
@@ -14,4 +16,4 @@ class ClientsPage extends Component {
     }
 }
 
-export default ClientsPage;
+export default withStyles(styles)(ClientsPage);

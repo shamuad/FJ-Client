@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
+import Button from '@material-ui/core/Button'
 // import ReactDOM from 'react-dom';
 // import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -15,6 +15,75 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import styles from './styles'
 import PieChart from './PieChart'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import {Link} from 'react-router-dom'
+
+const CampaignDetails = ({classes, match}) => (
+  <Query 
+    query={gql`
+    query getCampaignPerformance($id: String!) {
+    getCampaignPerformance(id: $id){
+        id
+        name
+        unique_views
+        retention
+        cpv
+        ctr
+      }
+    }
+    `} variables = {{id: match.params.id}}
+  >
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+      return  (
+        <div>
+        <Typography variant="h4" component="h6" >
+            Campaign: {data.getCampaignPerformance.name}
+         </Typography>
+        <Grid item xs={3} sm={9}>
+        {/* <Paper className={classes.paper}> */}
+        <Grid container spacing={24}>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+                 Unique views
+          <Typography variant="h3" component="h3" >
+                  {Math.round(data.getCampaignPerformance.unique_views)}
+                </Typography>
+          </Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+                Retention
+            <Typography variant="h3" component="h3" >
+                {Math.floor(data.getCampaignPerformance.retention)}%
+                </Typography>
+          </Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+                CPV 
+          <Typography variant="h3" component="h3" >
+                   € {parseFloat(data.getCampaignPerformance.cpv).toFixed(2)}
+                </Typography>
+                </Paper></Grid>
+          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+                CTR 
+          <Typography variant="h3" component="h3" >
+                € {parseFloat(data.getCampaignPerformance.ctr).toFixed(2)}
+                </Typography></Paper></Grid>
+                {<Grid item xs={0.5} sm={9}><Link to={`/clients/campaigns/${data.getCampaignPerformance.id}/video`}>
+           <Paper>Videos for this campaign: 
+               <br/>
+               </Paper></Link></Grid>
+
+           }     
+        </Grid>
+        {/* </Paper> */}
+      </Grid>
+      </div>
+      )
+    }
+  }
+  </Query>
+);
+
 
 class CampaignDetail extends React.Component {
 
@@ -23,8 +92,7 @@ class CampaignDetail extends React.Component {
     name: 'hai',
   };
 
-  componentDidMount() {
-
+  componentDidMount() {   
   }
 
   handleChange = event => {
@@ -34,9 +102,10 @@ class CampaignDetail extends React.Component {
   render() {
     const { classes } = this.props;
 
-
     return (
       <div className={classes.root}>
+
+      <br/>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -100,24 +169,7 @@ class CampaignDetail extends React.Component {
           <Grid item xs={3} sm={9}>
 
             {/* <Paper className={classes.paper}> */}
-            <Grid container spacing={24}>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-                <Typography>
-
-                </Typography>
-              </Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
-              <Typography variant="h5" component="h3" >
-                        1.000/1.200
-                    </Typography>
-              </Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-              <Grid item xs={4} sm={4}><Paper className={classes.paperValues}></Paper></Grid>
-            </Grid>
-            {/* </Paper> */}
+            <CampaignDetails {...this.props} classes={classes}/>
           </Grid>
         </Grid>
       </div>

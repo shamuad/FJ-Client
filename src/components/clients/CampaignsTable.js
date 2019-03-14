@@ -7,9 +7,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { faInfo} from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faFacebookF, faYoutube } from '@fortawesome/free-brands-svg-icons'
+// import { faInfo} from '@fortawesome/free-solid-svg-icons'
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import {Link} from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -22,19 +26,47 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, target, info, social, cCount, rDate) {
-  id += 1;
-  return { id, name, target, info, social, cCount, rDate };
+const CampaignTitles = (props) => (
+  <Query
+    query={gql`{
+    getAllCampaignPerformance{
+      id
+      name
+      videoAdPerformance{
+        unique_views
+      }
+    }
+  }
+`}
+  >
+  {({ loading, error, data }) => {
+      if (loading) return "Loading...";
+      if (error) return `Error! ${error.message}`;
+      return (
+        <TableBody>
+          {data.getAllCampaignPerformance.map(campaign => (
+            <TableRow key={campaign.id}>
+              <TableCell  align="left" component="th" scope="row">
+              <Button component={Link} to={`/clients/campaigns/${campaign.id}`} color="inherit">{campaign.name}</Button>
+              </TableCell>
+              <TableCell align="right">{campaign.id}</TableCell>
+              <TableCell align="right">{campaign.videoAdPerformance.length}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      );
+    }}
+  
+  </Query>
+)
+
+function createData(id, name, cCount) {
+  return { id, name, cCount };
 }
 
-const rows = [
-  createData('Quaker Video 1', '%80 Campain Target', '960/1200 leads generated','', 4.0, 5),
-  createData('Quaker Video 2', '%30 Campain Target', '22.500/75.000 euro purchase value','', 4.3, 12),
-  createData('Quaker Lore', '%30 Campain Target', '800.000/1.000.000 unique views', '', 6.0, 25),
-  createData('Quaker Ipsum', '%30 Campain Target', '960/1200 leads generated', '', 4.3, 15),
-  createData('Quaker Lorem', '%30 Campain Target', '960/1200 leads generated', '', 3.9, 18),
-];
+// const rows = []
+
+
 
 function CampaignsTable(props) {
   const { classes } = props;
@@ -44,31 +76,13 @@ function CampaignsTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell align="right">Campaign Target</TableCell>
-            <TableCell align="right">Info</TableCell>
-            <TableCell align="right">Social Media</TableCell>
+            <TableCell align="left">Title</TableCell>
+            <TableCell align="right">ID</TableCell>
+            {/* <TableCell align="right">Social Media</TableCell> */}
             <TableCell align="right">Count</TableCell>
-            <TableCell align="right">Remaining Day</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.target}</TableCell>
-              <TableCell align="right"><FontAwesomeIcon icon={faInfo} />  {row.info}</TableCell>
-              <TableCell align="right">
-                <FontAwesomeIcon icon={faFacebookF} /><span>  </span>
-                <FontAwesomeIcon icon={faYoutube} />
-              </TableCell>
-              <TableCell align="right">{row.cCount}</TableCell>
-              <TableCell align="right">{row.rDate}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        <CampaignTitles />
       </Table>
     </Paper>
   );
