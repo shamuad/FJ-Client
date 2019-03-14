@@ -209,7 +209,7 @@ class TopBar extends React.Component {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <Button component={Link} to={'/clients'} color="inherit">Clients</Button>
-              <Button component={Link} to={'/AddCampaign'} color="inherit">Add Campaign</Button>
+              <Button component={Link} to={'/AddCampaign'} color="inherit">Add-Campaign</Button>
               {/* <Button color="inherit">Reports</Button> */}
               <IconButton color="inherit">
                 <Badge badgeContent={1} color="secondary">
