@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import classNames from 'classnames';
-import InputAdornment from '@material-ui/core/InputAdornment';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import styles from './styles'
-
 
 
 class SelectCampaign extends Component {
@@ -42,7 +33,7 @@ class SelectCampaign extends Component {
                 select
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
-                label="Select Google Campaign"
+                label="Select Google campaign"
                 value={state.google}
                 fullWidth
                 name='google'
@@ -60,7 +51,7 @@ class SelectCampaign extends Component {
                 select
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
-                label="Select Facebook Campaign"
+                label="Select Facebook campaign"
                 value={state.facebook}
                 name='facebook'
                 fullWidth
@@ -75,7 +66,6 @@ class SelectCampaign extends Component {
               </Grid>
             </Grid>
           </React.Fragment>
-
   );
   }
   

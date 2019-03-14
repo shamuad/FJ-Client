@@ -12,7 +12,7 @@ import SelectCampaign from './SelectCampaign';
 import SelectVideos from './SelectVideos';
 import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
-import { empty } from 'apollo-link';
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   appBar: {
@@ -51,7 +51,7 @@ const styles = theme => ({
   },
 });
 
-const steps = ['Select Campaign', 'Review your selections'];
+const steps = ['Select campaign', 'Select videos'];
 
 function getStepContent(step, data, state, handleChange, changePosition, positions) {
   switch (step) {
@@ -81,7 +81,6 @@ class AddCampaignContainer extends React.Component {
 
   }
 
-
   onSumbit = () => {
     const campaigns = {
       name: this.state.campaignTitle,
@@ -97,7 +96,6 @@ class AddCampaignContainer extends React.Component {
       })
     })
 
-    
     this.props.mutate({
       variables: { campaigns, videos }
     })
@@ -123,9 +121,12 @@ class AddCampaignContainer extends React.Component {
         }))
       }
     } else {
+      if(this.state.position === undefined) {}
+      this.setState(state => ({
+        activeStep: state.activeStep + 1,
+      }))
       this.onSumbit()
     }
-     
   };
 
   handleBack = () => {
@@ -143,7 +144,6 @@ class AddCampaignContainer extends React.Component {
   render() {
     const { classes } = this.props;
     const { activeStep } = this.state;
-
     const query = gql`
     {
       getCampaigns {
@@ -194,7 +194,7 @@ class AddCampaignContainer extends React.Component {
                     The campaign {this.state.campaignTitle} has been added.
                   </Typography>
                   <Typography variant="subtitle1">
-
+                  <Button component={Link} to={'/clients'} color="inherit">Back to clients</Button>
                   </Typography>
                 </React.Fragment>
               ) : (

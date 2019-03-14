@@ -4,18 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -80,9 +74,7 @@ class SelectVideos extends React.Component {
         if(selectedAdsG) {
             selectedAdsG.map((video) => this.props.changePosition(video.id, ''))
         }
-
         this.setState({selectedAdsFacebook : selectedAdsF, selectedAdsGoogle: selectedAdsG, positions})
-        
     }
 
     onChange = (event) => {
@@ -99,7 +91,7 @@ class SelectVideos extends React.Component {
                 <Typography variant="h6" className={classes.title}>
                         Please, fill in the same number to identify the same videos on both platforms
                         </Typography>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={12}>
                         <Typography variant="h6" className={classes.title}>
                             Facebook video's
                         </Typography>
@@ -133,15 +125,7 @@ class SelectVideos extends React.Component {
                             </List>
                         </div>
                     </Grid>
-                
-                
-                
-                
-                
-                    
-
-
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={12}>
                         <Typography variant="h6" className={classes.title}>
                             Google video's
                         </Typography>
@@ -174,13 +158,8 @@ class SelectVideos extends React.Component {
                             </List>
                         </div>
                     </Grid>
-
-
                 </Grid>
             </div>
-
-
-
         );
     }
 }
