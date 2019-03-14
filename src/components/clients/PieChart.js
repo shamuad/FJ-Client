@@ -2,7 +2,7 @@ import * as React from 'react';
 // import Paper from '@material-ui/core/Paper';
 import {
   Chart,
-  PieSeries, Title
+  PieSeries, Title, Legend
 } from '@devexpress/dx-react-chart-material-ui';
 
 
@@ -26,13 +26,14 @@ export default class Demo extends React.PureComponent {
     return (
         <Chart
           data={chartData}
-        > 
-          <PieSeries
+        > <PieSeries
             valueField="unique_views"
             argumentField="Platform"
           />
            <Title text="Unique views" />
+           <Legend position='bottom'/>
         </Chart>
+      
     );
   }
 }
