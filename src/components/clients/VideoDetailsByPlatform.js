@@ -8,8 +8,7 @@ import Grid from '@material-ui/core/Grid';
 class VideoDetailsByPlatform extends React.Component {
 
     render(){
-        const { classes , id, cpv, ctr, name, unique_views, spend, retention,  platform} = this.props;
-        console.log(this.props)
+        const { classes , cpv, ctr, unique_views,retention,  platform} = this.props;
         return  (
             <Grid xs={4} container spacing={12}  
                 direction="row"

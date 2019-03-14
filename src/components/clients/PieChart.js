@@ -2,19 +2,15 @@ import * as React from 'react';
 // import Paper from '@material-ui/core/Paper';
 import {
   Chart,
-  PieSeries,
+  PieSeries, Title
 } from '@devexpress/dx-react-chart-material-ui';
 
+
 const data = [
-  { country: 'Russia', area: 12 },
-  { country: 'Canada', area: 7 },
-  { country: 'USA', area: 7 },
-  { country: 'China', area: 7 },
-  { country: 'Brazil', area: 6 },
-  { country: 'Australia', area: 5 },
-  { country: 'India', area: 2 },
-  { country: 'Others', area: 55 },
+  { Platform: 'Facebook', unique_views: 1230 },
+  { Platform: 'Google', unique_views: 800 }
 ];
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -30,11 +26,12 @@ export default class Demo extends React.PureComponent {
     return (
         <Chart
           data={chartData}
-        >
+        > 
           <PieSeries
-            valueField="area"
-            argumentField="country"
+            valueField="unique_views"
+            argumentField="Platform"
           />
+           <Title text="Unique views" />
         </Chart>
     );
   }

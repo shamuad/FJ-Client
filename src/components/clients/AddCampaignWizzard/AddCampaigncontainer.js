@@ -94,6 +94,7 @@ class AddCampaignContainer extends React.Component {
         position: parseInt(Object.values(this.state.positions)[index]),
         videoAdId: value
       })
+      return ''
     })
 
     this.props.mutate({

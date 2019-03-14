@@ -17,7 +17,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import VideoDetailsByPlatform from './VideoDetailsByPlatform'
 import './video.css';
-import { ActionAssignmentReturn } from 'material-ui/svg-icons';
 
 const VideoKpis = (props) => (
 
@@ -60,7 +59,6 @@ const VideoKpis = (props) => (
         unique_views,
         // spend,
         retention,
-        video_id,
         // thumbnails 
       } = data.getVideoAdPerformance
 

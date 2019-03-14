@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import ReactDOM from 'react-dom';
-// import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import styles from './styles'
-// import PieChart from './PieChart'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Link } from 'react-router-dom'
@@ -75,7 +70,7 @@ const Videos = ({ classes, match }) => (
                             <TableCell align="left">€{parseFloat(row.ctr).toFixed(2)}</TableCell>
                             <TableCell align="left">{row.unique_views}</TableCell>
                             <TableCell align="left">€{parseFloat(row.spend).toFixed(2)}</TableCell>
-                            <TableCell align="left">{Number(row.retention)}%</TableCell>
+                            <TableCell align="left">{Math.round(Number(row.retention))}%</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
