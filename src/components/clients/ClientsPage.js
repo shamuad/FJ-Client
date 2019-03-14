@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles'
+import {Link} from 'react-router-dom'
 
 class ClientsPage extends Component {
 
@@ -14,7 +15,7 @@ class ClientsPage extends Component {
         return (
             <div>
                 <Grid className={classes.navBarClient}>
-                    <Button>Start new campaign</Button>
+                    <Button><Link to="/AddCampaign">Start new campaign</Link></Button>
                     <Button>Add new client</Button>
                     <Button>Campaigns</Button>
                 </Grid>

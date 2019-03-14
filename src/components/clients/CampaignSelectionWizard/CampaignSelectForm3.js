@@ -54,16 +54,36 @@ function generate(element) {
     );
 }
 
-class InteractiveList extends React.Component {
+class SelectVideos extends React.Component {
     state = {
+
         dense: false,
         secondary: false,
+        selectedAdsFacebook: [],
+        selectedAdsGoogle: [],
+        positions: {}
     };
+
+    componentDidMount(){
+        const selectedAdsF = this.props.getCampaigns.facebook.find(ad => ad.id === this.props.state.facebook).ads
+        const selectedAdsG = this.props.getCampaigns.google.find(ad => ad.id === this.props.state.google).ads
+        
+        const positions = {}
+        selectedAdsF.map((video) => this.props.changePosition(video.id, ''))
+        selectedAdsG.map((video) => this.props.changePosition(video.id, ''))
+
+        this.setState({selectedAdsFacebook : selectedAdsF, selectedAdsGoogle: selectedAdsG, positions})
+        
+    }
+
+    onChange = (event) => {
+        this.props.changePosition(event.target.name, event.target.value )
+    }
 
     render() {
         const { classes } = this.props;
         const { dense, secondary } = this.state;
-
+        
         return (
             <div className={classes.root}>
                 <Grid container spacing={16}>
@@ -73,28 +93,31 @@ class InteractiveList extends React.Component {
                         </Typography>
                         <div className={classes.demo}>
                             <List dense={dense}>
-                                {generate(
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                <OndemandVideoIcon />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary="Single-line item"
-                                            secondary={secondary ? 'Secondary text' : null}
+                               {this.state.selectedAdsFacebook.map(ad => (
+                                 <ListItem>
+                                    <ListItemAvatar>
+                                        <Avatar>
+                                            <OndemandVideoIcon />
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={ad.name}
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                    <ListItemSecondaryAction>
+                                        <TextField
+                                            id="filled-bare"
+                                            className={classes.textField}
+                                            defaultValue=""
+                                            onChange={this.onChange}
+                                            
+                                            margin="normal"
+                                            variant="filled"
+                                            name={ad.id}
+                                            value={this.props.positions[`${ad.id}`]}
                                         />
-                                        <ListItemSecondaryAction>
-                                            <TextField
-                                                id="filled-bare"
-                                                className={classes.textField}
-                                                defaultValue=""
-                                                margin="normal"
-                                                variant="filled"
-                                            />
-                                        </ListItemSecondaryAction>
-                                    </ListItem>,
-                                )}
+                                    </ListItemSecondaryAction>
+                                </ListItem>))}
                             </List>
                         </div>
                     </Grid>
@@ -106,28 +129,30 @@ class InteractiveList extends React.Component {
                         </Typography>
                         <div className={classes.demo}>
                             <List dense={dense}>
-                                {generate(
-                                    <ListItem>
+                              {this.state.selectedAdsGoogle.map(ad => 
+                                <ListItem>
                                         <ListItemAvatar>
                                             <Avatar>
                                                 <OndemandVideoIcon />
                                             </Avatar>
                                         </ListItemAvatar>
                                         <ListItemText
-                                            primary="Videos-for google"
+                                            primary={ad.name}
                                             secondary={secondary ? 'Secondary text' : null}
                                         />
                                         <ListItemSecondaryAction>
                                             <TextField
                                                 id="filled-bare"
+                                                name={ad.id}
+                                                value={this.props.positions[`${ad.id}`]}
                                                 className={classes.textField}
-                                                defaultValue=""
+                                                onChange={this.onChange}
                                                 margin="normal"
                                                 variant="filled"
                                             />
                                         </ListItemSecondaryAction>
                                     </ListItem>,
-                                )}
+                              )}
                             </List>
                         </div>
                     </Grid>
@@ -142,8 +167,8 @@ class InteractiveList extends React.Component {
     }
 }
 
-InteractiveList.propTypes = {
+SelectVideos.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InteractiveList);
+export default withStyles(styles)(SelectVideos);

@@ -10,9 +10,12 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './CampaignSelectForm1';
+import SelectCampaign from './CampaignSelectForm1';
 import PaymentForm from './CampaignSelectForm2';
 import Review from './CampaignSelectForm3';
+import { Query, graphql } from "react-apollo";
+import gql from "graphql-tag";
+import { get } from 'https';
 
 const styles = theme => ({
   appBar: {
@@ -53,23 +56,68 @@ const styles = theme => ({
 
 const steps = ['Select Campaign', 'Review your selections'];
 
-function getStepContent(step) {
+function getStepContent(step, data, state, handleChange, changePosition, positions) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <SelectCampaign {...data} state={state} handleChange={handleChange}  />;
     case 1:
-      return <Review />;
+      return <Review {...data} state={state} changePosition={changePosition} positions={positions}gi/>;
     default:
       throw new Error('Unknown step');
   }
 }
 
-class Checkout extends React.Component {
+const submitCampaign = gql`
+  mutation submitCampaign($campaigns: CampaignsInput!, $videos: [VideoAdInput!]) {
+      combineCampaign( campaigns: $campaigns, videos: $videos) 
+    }
+`;
+
+class SubmitAdCampaign extends React.Component {
   state = {
     activeStep: 0,
-  };
+    facebook: '',
+    google: '',
+    campaigns: [],
+    positions: {}
+
+  }
+
+
+  onSumbit = () => {
+    const campaigns = {
+      name: "Sample Name",
+      facebookCampaignId: this.state.facebook,
+      googleCampaignId: this.state.google
+    }
+
+    const videos = []
+    Object.keys(this.state.positions).map((value, index) => {
+      videos.push({
+        position: parseInt(Object.values(this.state.positions)[index]),
+        videoAdId: value
+      })
+    })
+
+    
+    this.props.mutate({
+      variables: { campaigns, videos }
+    })
+  }
+
+  changePosition = (name, value) => {
+    this.setState({positions: {...this.state.positions, [name]: value }})
+  }
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
   handleNext = () => {
+    if(this.state.activeStep === 1) {
+      this.onSumbit()
+      console.log("testvbb, is this 1?")
+    }
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
@@ -91,8 +139,36 @@ class Checkout extends React.Component {
     const { classes } = this.props;
     const { activeStep } = this.state;
 
+    const query = gql`
+    {
+      getCampaigns {
+        facebook {
+          id
+          name
+          ads {
+            id
+            name
+          }
+        }
+        google {
+          id
+          name
+          ads {
+            id
+            name
+          }
+        }
+      }
+    }
+  `
+
     return (
-      <React.Fragment>
+      <Query query={query}>
+      {({ loading, error, data }) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error :(</p>;
+        return (
+        <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
@@ -119,7 +195,7 @@ class Checkout extends React.Component {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {getStepContent(activeStep, data, this.state, this.handleChange, this.changePosition, this.state.positions)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button onClick={this.handleBack} className={classes.button}>
@@ -141,12 +217,18 @@ class Checkout extends React.Component {
           </Paper>
         </main>
       </React.Fragment>
+        )
+                    
+      }}
+        </Query>
     );
   }
 }
 
-Checkout.propTypes = {
+SubmitAdCampaign.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+const NewEntryWithData = graphql(submitCampaign)(SubmitAdCampaign);
+
+export default withStyles(styles)(NewEntryWithData);
