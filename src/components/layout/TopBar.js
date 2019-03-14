@@ -25,7 +25,7 @@ const styles = theme => ({
     color: '#fff'
   },
   root: {
-    width: '100%',
+    width: '100%'
   },
   grow: {
     flexGrow: 1,
@@ -143,6 +143,7 @@ class TopBar extends React.Component {
 
     const renderMobileMenu = (
       <Menu
+        
         anchorEl={mobileMoreAnchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -183,13 +184,13 @@ class TopBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="sticky">
+        <AppBar  style={{backgroundColor: 'black'}} position="sticky">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              SmartVideo APP
+              Smart Video
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -205,9 +206,9 @@ class TopBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {/* <Button color="inherit">Clients</Button> */}
+         
               <Button color="inherit" className={classes.buttonStyle}><Link to={'/clients'}>All campaigns</Link></Button>
-              {/* <Button color="inherit">Reports</Button> */}
+
               <IconButton color="inherit">
                 <Badge badgeContent={1} color="secondary">
                   <NotificationsIcon />
