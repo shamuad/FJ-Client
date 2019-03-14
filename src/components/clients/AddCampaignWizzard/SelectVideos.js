@@ -72,8 +72,6 @@ class SelectVideos extends React.Component {
             selectedAdsG =[]
         }
 
-
-        console.log(selectedAdsF)
         const positions = {}
 
         if(selectedAdsF) {
@@ -98,9 +96,9 @@ class SelectVideos extends React.Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={16}>
-           
-                
-                
+                <Typography variant="h6" className={classes.title}>
+                        Please, fill in the same number to identify the same videos on both platforms
+                        </Typography>
                 <Grid item xs={12} md={6}>
                         <Typography variant="h6" className={classes.title}>
                             Facebook video's

@@ -112,19 +112,20 @@ class AddCampaignContainer extends React.Component {
   }
 
   handleNext = () => {
-    if(this.state.campaignTitle.length === 0) {
-      alert('Your campaign needs a title.')
-    } else if(this.state.facebook.length === 0 && this.state.google.length === 0){
-      alert('You need to pick at least one platform')
-    } else if(this.state.activeStep === 1) {
-      this.onSumbit()
+    if(this.state.activeStep === 0) {
+      if(this.state.campaignTitle.length === 0) {
+        alert('Your campaign needs a title.')
+      } else if(this.state.facebook.length === 0 && this.state.google.length === 0){
+        alert('You need to pick at least one platform')
+      } else {
+        this.setState(state => ({
+          activeStep: state.activeStep + 1,
+        }))
+      }
     } else {
-      this.setState(state => ({
-        activeStep: state.activeStep + 1,
-      }))
+      this.onSumbit()
     }
-
-    
+     
   };
 
   handleBack = () => {
@@ -177,7 +178,7 @@ class AddCampaignContainer extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Select your campaigns
+              Add campaign
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map(label => (

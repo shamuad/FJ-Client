@@ -13,8 +13,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import styles from './styles'
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+
 
 
 class SelectCampaign extends Component {
@@ -26,6 +25,7 @@ class SelectCampaign extends Component {
           <React.Fragment>
             <Grid container spacing={24}>
               <Grid item xs={12}>
+          
               <TextField
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
@@ -42,12 +42,11 @@ class SelectCampaign extends Component {
                 select
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
-                label="Google Campaign"
+                label="Select Google Campaign"
                 value={state.google}
                 fullWidth
                 name='google'
                 onChange={handleChange}
-           
               >
                 {getCampaigns.google.map(option => (
                   <MenuItem key={option.id} value={option.id}>
@@ -61,12 +60,11 @@ class SelectCampaign extends Component {
                 select
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
-                label="Facebook Campaign"
+                label="Select Facebook Campaign"
                 value={state.facebook}
                 name='facebook'
                 fullWidth
                 onChange={handleChange}
-                
               >
                 {getCampaigns.facebook.map(option => (
                   <MenuItem key={option.id} value={option.id}>
