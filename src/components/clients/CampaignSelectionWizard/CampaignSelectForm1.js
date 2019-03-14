@@ -42,6 +42,18 @@ class SelectCampaign extends Component {
             <Grid container spacing={24}>
               <Grid item xs={12}>
               <TextField
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="Campaign name"
+                value={state.campaignTitle}
+                fullWidth
+                name='campaignTitle'
+                onChange={handleChange}
+              > 
+              </TextField>
+              </Grid>
+              <Grid item xs={12}>
+              <TextField
                 select
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
