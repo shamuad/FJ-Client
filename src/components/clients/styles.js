@@ -34,11 +34,11 @@ const styles = theme => ({
         width: '100%',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
-      },
-      
-      table: {
+    },
+
+    table: {
         minWidth: 700,
-      },
+    },
 
     formControl: {
         margin: theme.spacing.unit,
@@ -53,6 +53,7 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
         margin: '1em 1em 0em 1em',
     },
+
     paperValues: {
         padding: theme.spacing.unit * 1,
         textAlign: 'left',
@@ -100,8 +101,13 @@ const styles = theme => ({
     link: {
         margin: theme.spacing.unit,
         textDecoration: 'none'
-      },
-    
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
 });
 
 export default styles

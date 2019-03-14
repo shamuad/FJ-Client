@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 // import ReactDOM from 'react-dom';
 // import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -39,7 +40,7 @@ const CampaignDetails = ({classes, match}) => (
       if (error) return <p>Error :(</p>;
       return  (
         <div>
-        <Typography variant="h4" component="h6" >
+        <Typography variant="h6" component="h4" >
             Campaign: {data.getCampaignPerformance.name}
          </Typography>
         <Grid item xs={3} sm={9}>
@@ -47,33 +48,35 @@ const CampaignDetails = ({classes, match}) => (
         <Grid container spacing={24}>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                  Unique views
-          <Typography variant="h3" component="h3" >
+          <Typography variant="h6" component="h3" >
                   {Math.round(data.getCampaignPerformance.unique_views)}
                 </Typography>
           </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                 Retention
-            <Typography variant="h3" component="h3" >
+            <Typography variant="h6" component="h3" >
                 {Math.floor(data.getCampaignPerformance.retention)}%
                 </Typography>
           </Paper></Grid>
           <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
                 CPV 
-          <Typography variant="h3" component="h3" >
+          <Typography variant="h6" component="h3" >
                    € {parseFloat(data.getCampaignPerformance.cpv).toFixed(2)}
                 </Typography>
                 </Paper></Grid>
-          <Grid item xs={4} sm={4}><Paper className={classes.paperValues}>
+          <Grid item xs={4} sm={4}>
+          <Paper className={classes.paperValues}>
                 CTR 
-          <Typography variant="h3" component="h3" >
+            <Typography variant="h6" component="h3" >
                 € {parseFloat(data.getCampaignPerformance.ctr).toFixed(2)}
-                </Typography></Paper></Grid>
-                {<Grid item xs={0.5} sm={9}><Link to={`/clients/campaigns/${data.getCampaignPerformance.id}/video`}>
-           <Paper>Videos for this campaign: 
-               <br/>
-               </Paper></Link></Grid>
-
-           }     
+            </Typography></Paper></Grid>
+            <Grid item xs={3} sm={9}>
+            <Button component={Link} variant="contained" color="primary" className={classes.button}
+              to={`/clients/campaigns/${data.getCampaignPerformance.id}/video`}
+            >Videos for this campaign
+              <OndemandVideoIcon className={classes.rightIcon} />
+            </Button>
+            </Grid>
         </Grid>
         {/* </Paper> */}
       </Grid>
