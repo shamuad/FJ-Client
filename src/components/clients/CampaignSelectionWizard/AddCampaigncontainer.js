@@ -2,17 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import SelectCampaign from './CampaignSelectForm1';
-import PaymentForm from './CampaignSelectForm2';
-import Review from './CampaignSelectForm3';
+import SelectCampaign from './SelectCampaign';
+import SelectVideos from './SelectVideos';
 import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { get } from 'https';
@@ -61,7 +58,7 @@ function getStepContent(step, data, state, handleChange, changePosition, positio
     case 0:
       return <SelectCampaign {...data} state={state} handleChange={handleChange}  />;
     case 1:
-      return <Review {...data} state={state} changePosition={changePosition} positions={positions}gi/>;
+      return <SelectVideos {...data} state={state} changePosition={changePosition} positions={positions}gi/>;
     default:
       throw new Error('Unknown step');
   }
@@ -73,7 +70,7 @@ const submitCampaign = gql`
     }
 `;
 
-class SubmitAdCampaign extends React.Component {
+class AddCampaignContainer extends React.Component {
   state = {
     activeStep: 0,
     facebook: '',
@@ -176,7 +173,7 @@ class SubmitAdCampaign extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Campaign Selection Page
+              Select your campaigns
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map(label => (
@@ -228,10 +225,10 @@ class SubmitAdCampaign extends React.Component {
   }
 }
 
-SubmitAdCampaign.propTypes = {
+AddCampaignContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const NewEntryWithData = graphql(submitCampaign)(SubmitAdCampaign);
+const NewEntryWithData = graphql(submitCampaign)(AddCampaignContainer);
 
 export default withStyles(styles)(NewEntryWithData);
