@@ -46,14 +46,6 @@ const styles = theme => ({
     },
 });
 
-function generate(element) {
-    return [0, 1, 2].map(value =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
-
 class SelectVideos extends React.Component {
     state = {
 
@@ -65,12 +57,31 @@ class SelectVideos extends React.Component {
     };
 
     componentDidMount(){
-        const selectedAdsF = this.props.getCampaigns.facebook.find(ad => ad.id === this.props.state.facebook).ads
-        const selectedAdsG = this.props.getCampaigns.google.find(ad => ad.id === this.props.state.google).ads
+        let selectedAdsF = this.props.getCampaigns.facebook.find(ad => ad.id === this.props.state.facebook)
+        let selectedAdsG = this.props.getCampaigns.google.find(ad => ad.id === this.props.state.google)
         
+        if(selectedAdsF && selectedAdsF.ads) {
+            selectedAdsF = selectedAdsF.ads
+        } else {
+            selectedAdsF = []
+        }
+
+        if(selectedAdsG && selectedAdsG.ads) {
+            selectedAdsG = selectedAdsG.ads
+        } else {
+            selectedAdsG =[]
+        }
+
+
+        console.log(selectedAdsF)
         const positions = {}
-        selectedAdsF.map((video) => this.props.changePosition(video.id, ''))
-        selectedAdsG.map((video) => this.props.changePosition(video.id, ''))
+
+        if(selectedAdsF) {
+            selectedAdsF.map((video) => this.props.changePosition(video.id, ''))
+        }
+        if(selectedAdsG) {
+            selectedAdsG.map((video) => this.props.changePosition(video.id, ''))
+        }
 
         this.setState({selectedAdsFacebook : selectedAdsF, selectedAdsGoogle: selectedAdsG, positions})
         
@@ -87,9 +98,12 @@ class SelectVideos extends React.Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={16}>
-                    <Grid item xs={12} md={6}>
+           
+                
+                
+                <Grid item xs={12} md={6}>
                         <Typography variant="h6" className={classes.title}>
-                            Facebook Campaign
+                            Facebook video's
                         </Typography>
                         <div className={classes.demo}>
                             <List dense={dense}>
@@ -121,11 +135,17 @@ class SelectVideos extends React.Component {
                             </List>
                         </div>
                     </Grid>
+                
+                
+                
+                
+                
+                    
 
 
                     <Grid item xs={12} md={6}>
                         <Typography variant="h6" className={classes.title}>
-                            Google Campaign
+                            Google video's
                         </Typography>
                         <div className={classes.demo}>
                             <List dense={dense}>

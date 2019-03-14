@@ -12,7 +12,7 @@ import SelectCampaign from './SelectCampaign';
 import SelectVideos from './SelectVideos';
 import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
-import { get } from 'https';
+import { empty } from 'apollo-link';
 
 const styles = theme => ({
   appBar: {
@@ -83,7 +83,6 @@ class AddCampaignContainer extends React.Component {
 
 
   onSumbit = () => {
-    console.log(this.state)
     const campaigns = {
       name: this.state.campaignTitle,
       facebookCampaignId: this.state.facebook,
@@ -109,18 +108,23 @@ class AddCampaignContainer extends React.Component {
   }
 
   handleChange = event => {
-    console.log(event)
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleNext = () => {
-    if(this.state.activeStep === 1) {
+    if(this.state.campaignTitle.length === 0) {
+      alert('Your campaign needs a title.')
+    } else if(this.state.facebook.length === 0 && this.state.google.length === 0){
+      alert('You need to pick at least one platform')
+    } else if(this.state.activeStep === 1) {
       this.onSumbit()
-      console.log("testvbb, is this 1?")
+    } else {
+      this.setState(state => ({
+        activeStep: state.activeStep + 1,
+      }))
     }
-    this.setState(state => ({
-      activeStep: state.activeStep + 1,
-    }));
+
+    
   };
 
   handleBack = () => {
@@ -186,11 +190,10 @@ class AddCampaignContainer extends React.Component {
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography variant="h5" gutterBottom>
-                    Thank you for your order.
+                    The campaign {this.state.campaignTitle} has been added.
                   </Typography>
                   <Typography variant="subtitle1">
-                    Your order number is #2001539. We have emailed your order confirmation, and will
-                    send you an update when your order has shipped.
+
                   </Typography>
                 </React.Fragment>
               ) : (
@@ -208,7 +211,7 @@ class AddCampaignContainer extends React.Component {
                       onClick={this.handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                      {activeStep === steps.length - 1 ? 'Done' : 'Next'}
                     </Button>
                   </div>
                 </React.Fragment>

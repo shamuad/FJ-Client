@@ -8,7 +8,7 @@ import ClientsPage from './components/clients/ClientsPage'
 import CampaignDetail from './components/clients/CampaignDetail'
 import VideoDetail from './components/clients/VideoDetail'
 import VideoList from './components/clients/VideoList'
-import AddCampaignContainer from './components/clients/CampaignSelectionWizard/AddCampaigncontainer'
+import AddCampaignContainer from './components/clients/AddCampaignWizzard/AddCampaigncontainer'
 
 import ApolloClient from "apollo-boost";
 // import { render } from "react-dom";
