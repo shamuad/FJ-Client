@@ -2,20 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import SelectCampaign from './CampaignSelectForm1';
-import PaymentForm from './CampaignSelectForm2';
-import Review from './CampaignSelectForm3';
+import SelectCampaign from './SelectCampaign';
+import SelectVideos from './SelectVideos';
 import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
-import { get } from 'https';
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   appBar: {
@@ -54,14 +51,14 @@ const styles = theme => ({
   },
 });
 
-const steps = ['Select Campaign', 'Review your selections'];
+const steps = ['Select campaign', 'Select videos'];
 
 function getStepContent(step, data, state, handleChange, changePosition, positions) {
   switch (step) {
     case 0:
       return <SelectCampaign {...data} state={state} handleChange={handleChange}  />;
     case 1:
-      return <Review {...data} state={state} changePosition={changePosition} positions={positions}gi/>;
+      return <SelectVideos {...data} state={state} changePosition={changePosition} positions={positions}gi/>;
     default:
       throw new Error('Unknown step');
   }
@@ -73,7 +70,7 @@ const submitCampaign = gql`
     }
 `;
 
-class SubmitAdCampaign extends React.Component {
+class AddCampaignContainer extends React.Component {
   state = {
     activeStep: 0,
     facebook: '',
@@ -84,9 +81,7 @@ class SubmitAdCampaign extends React.Component {
 
   }
 
-
   onSumbit = () => {
-    console.log(this.state)
     const campaigns = {
       name: this.state.campaignTitle,
       facebookCampaignId: this.state.facebook,
@@ -101,7 +96,6 @@ class SubmitAdCampaign extends React.Component {
       })
     })
 
-    
     this.props.mutate({
       variables: { campaigns, videos }
     })
@@ -112,18 +106,27 @@ class SubmitAdCampaign extends React.Component {
   }
 
   handleChange = event => {
-    console.log(event)
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleNext = () => {
-    if(this.state.activeStep === 1) {
+    if(this.state.activeStep === 0) {
+      if(this.state.campaignTitle.length === 0) {
+        alert('Your campaign needs a title.')
+      } else if(this.state.facebook.length === 0 && this.state.google.length === 0){
+        alert('You need to pick at least one platform')
+      } else {
+        this.setState(state => ({
+          activeStep: state.activeStep + 1,
+        }))
+      }
+    } else {
+      if(this.state.position === undefined) {}
+      this.setState(state => ({
+        activeStep: state.activeStep + 1,
+      }))
       this.onSumbit()
-      console.log("testvbb, is this 1?")
     }
-    this.setState(state => ({
-      activeStep: state.activeStep + 1,
-    }));
   };
 
   handleBack = () => {
@@ -141,7 +144,6 @@ class SubmitAdCampaign extends React.Component {
   render() {
     const { classes } = this.props;
     const { activeStep } = this.state;
-
     const query = gql`
     {
       getCampaigns {
@@ -176,7 +178,7 @@ class SubmitAdCampaign extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Campaign Selection Page
+              Add campaign
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map(label => (
@@ -189,11 +191,10 @@ class SubmitAdCampaign extends React.Component {
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography variant="h5" gutterBottom>
-                    Thank you for your order.
+                    The campaign {this.state.campaignTitle} has been added.
                   </Typography>
                   <Typography variant="subtitle1">
-                    Your order number is #2001539. We have emailed your order confirmation, and will
-                    send you an update when your order has shipped.
+                  <Button component={Link} to={'/clients'} color="inherit">Back to clients</Button>
                   </Typography>
                 </React.Fragment>
               ) : (
@@ -211,7 +212,7 @@ class SubmitAdCampaign extends React.Component {
                       onClick={this.handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                      {activeStep === steps.length - 1 ? 'Done' : 'Next'}
                     </Button>
                   </div>
                 </React.Fragment>
@@ -228,10 +229,10 @@ class SubmitAdCampaign extends React.Component {
   }
 }
 
-SubmitAdCampaign.propTypes = {
+AddCampaignContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const NewEntryWithData = graphql(submitCampaign)(SubmitAdCampaign);
+const NewEntryWithData = graphql(submitCampaign)(AddCampaignContainer);
 
 export default withStyles(styles)(NewEntryWithData);
