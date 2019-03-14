@@ -78,6 +78,7 @@ class SubmitAdCampaign extends React.Component {
     activeStep: 0,
     facebook: '',
     google: '',
+    campaignTitle: '',
     campaigns: [],
     positions: {}
 
@@ -85,8 +86,9 @@ class SubmitAdCampaign extends React.Component {
 
 
   onSumbit = () => {
+    console.log(this.state)
     const campaigns = {
-      name: "Sample Name",
+      name: this.state.campaignTitle,
       facebookCampaignId: this.state.facebook,
       googleCampaignId: this.state.google
     }
@@ -110,6 +112,7 @@ class SubmitAdCampaign extends React.Component {
   }
 
   handleChange = event => {
+    console.log(event)
     this.setState({ [event.target.name]: event.target.value });
   }
 
