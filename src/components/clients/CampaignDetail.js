@@ -71,7 +71,7 @@ const CampaignDetails = ({classes, match}) => (
                 € {parseFloat(data.getCampaignPerformance.ctr).toFixed(2)}
             </Typography></Paper></Grid>
             <Grid item xs={3} sm={9}>
-            <Button component={Link} variant="contained" color="primary" className={classes.button}
+            <Button style={{backgroundColor: 'black'}} component={Link} variant="contained" color="primary" className={classes.button}
               to={`/clients/campaigns/${data.getCampaignPerformance.id}/video`}
             >Videos for this campaign
               <OndemandVideoIcon className={classes.rightIcon} />
@@ -112,7 +112,6 @@ class CampaignDetail extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              {/* --Select Period and Date Picker --- */}
               <form className={classes.root} autoComplete="off">
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="age-simple">Select Period</InputLabel>
@@ -159,9 +158,6 @@ class CampaignDetail extends React.Component {
                   />
                 </FormControl>
               </form>
-
-              {/* ------------------------ */}
-
             </Paper>
           </Grid>
           <Grid item xs={9} sm={3}>

@@ -43,7 +43,7 @@ class ActiveClient extends React.Component {
             </IconButton>
           }
           title="Company Name"
-          subheader="Active Campaign"
+          subheader="Sleeping Campaign"
         />
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton

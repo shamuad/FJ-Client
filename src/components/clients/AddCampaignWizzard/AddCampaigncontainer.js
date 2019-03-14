@@ -202,7 +202,7 @@ class AddCampaignContainer extends React.Component {
                   {getStepContent(activeStep, data, this.state, this.handleChange, this.changePosition, this.state.positions)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
-                      <Button onClick={this.handleBack} className={classes.button}>
+                      <Button style={{backgroundColor: 'red'}} onClick={this.handleBack} className={classes.button}>
                         Back
                       </Button>
                     )}

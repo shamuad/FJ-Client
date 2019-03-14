@@ -53,7 +53,6 @@ const Videos = ({ classes, match }) => (
         {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
-            console.log(data)
             const rows = []
             data.getCampaignPerformance.videoAdPerformance.map(video => rows.push(createData(
                 video.position,
@@ -105,12 +104,7 @@ class VideoList extends React.Component {
 
         return (
             <div className={classes.root}>
-                <br />
-                <Grid container spacing={24}>
-                    <Grid>
-                        <Link to={"/clients"}>All campaigns</Link>
-                    </Grid>
-                </Grid>
+                <br />               
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
