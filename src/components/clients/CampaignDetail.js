@@ -92,10 +92,7 @@ class CampaignDetail extends React.Component {
     name: 'hai',
   };
 
-
-
-  componentDidMount() {
-   
+  componentDidMount() {   
   }
 
   handleChange = event => {
@@ -104,8 +101,6 @@ class CampaignDetail extends React.Component {
 
   render() {
     const { classes } = this.props;
-
-    
 
     return (
       <div className={classes.root}>

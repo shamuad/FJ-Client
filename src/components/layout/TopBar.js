@@ -154,6 +154,9 @@ class TopBar extends React.Component {
             Clients
           </Button>
         </MenuItem>
+        <Button color="inherit">
+            Add Campaign
+          </Button>
         <MenuItem onClick={this.handleMobileMenuClose}>
           <Button color="inherit">
             Campaigns
@@ -205,8 +208,8 @@ class TopBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {/* <Button color="inherit">Clients</Button> */}
-              <Button color="inherit" className={classes.buttonStyle}><Link to={'/clients'}>All campaigns</Link></Button>
+              <Button component={Link} to={'/clients'} color="inherit">Clients</Button>
+              <Button component={Link} to={'/AddCampaign'} color="inherit">Add Campaign</Button>
               {/* <Button color="inherit">Reports</Button> */}
               <IconButton color="inherit">
                 <Badge badgeContent={1} color="secondary">
