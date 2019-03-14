@@ -17,11 +17,12 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import VideoDetailsByPlatform from './VideoDetailsByPlatform'
 import './video.css';
+import { ActionAssignmentReturn } from 'material-ui/svg-icons';
 
 const VideoKpis = (props) => (
-  
+
   <Query
-   
+
     query={gql`
       query getVideoAdPerformance($position: Int! $id: String!) {
         getVideoAdPerformance(position: $position id: $id){
@@ -44,14 +45,12 @@ const VideoKpis = (props) => (
           }
         }
       }
-    `} variables={{position: parseInt(props.match.params.position) , id: props.match.params.id}}
+    `} variables={{ position: parseInt(props.match.params.position), id: props.match.params.id }}
   >
     {({ loading, error, data }) => {
-      console.log(props.match.params.id)
+      console.log(data.getVideoAdPerformance)
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
-      console.log(error)
-      console.log(data)
       const { classes } = props;
       const {
         // id,
@@ -63,20 +62,35 @@ const VideoKpis = (props) => (
         retention,
         video_id,
         // thumbnails 
-          } = data.getVideoAdPerformance
+      } = data.getVideoAdPerformance
+
+      const video = () => {
+        if (data.getVideoAdPerformance.videos[0].platform === "GOOGLE") {
+          return <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${data.getVideoAdPerformance.videos[0].video_id}`}
+            title={name}>
+          </iframe>
+        }
+        else if (data.getVideoAdPerformance.videos[0].platform === "FACEBOOK") {
+          console.log(data.getVideoAdPerformance.videos[0].video_id)
+          return <iframe src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffjamsterdam%2Fvideos%2F${data.getVideoAdPerformance.videos[0].video_id}%2F&show_text=0&width=560`}
+          width="560" 
+          height="315"
+          title={name}> 
+          >
+          </iframe>
+        }
+      }
+
       return (
         <div>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paperVideoSection}>
                 <div className="video-responsive">
-                  <iframe width="560" height="315"
-                    src={`https://www.youtube.com/embed/${video_id}`}
-                    
-                    // src={`https://www.facebook.com/watch/?v=${data.getVideoAdPerformance.videos[0].video_id}`}
-                    
-                    title={name}>
-                  </iframe>
+                  {video()}
                 </div>
               </Paper>
             </Grid>
@@ -85,20 +99,20 @@ const VideoKpis = (props) => (
                 <Grid item xs={12}>
                   <Paper className={classes.paperValues}>
                     <Typography variant="h6" component="h6">
-                      {data.getVideoAdPerformance.videos[0].name}<br/>
+                      {data.getVideoAdPerformance.videos[0].name}<br />
                       <FontAwesomeIcon icon={faFacebookF} /><span>   </span>
-                    <FontAwesomeIcon icon={faYoutube} /><span>   </span>
-                    <FontAwesomeIcon icon={faInstagram} /><span>   </span>
-                    <FontAwesomeIcon icon={faTwitterSquare} />
+                      <FontAwesomeIcon icon={faYoutube} /><span>   </span>
+                      <FontAwesomeIcon icon={faInstagram} /><span>   </span>
+                      <FontAwesomeIcon icon={faTwitterSquare} />
                     </Typography>
-                  
+
                   </Paper>
                 </Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   CPV
               <Typography variant="h6" component="h3" >
-                  € {parseFloat(cpv).toFixed(2)}             
-                   </Typography>
+                    € {parseFloat(cpv).toFixed(2)}
+                  </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   Unique Views
@@ -109,22 +123,22 @@ const VideoKpis = (props) => (
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   CTR
                   <Typography variant="h6" component="h3" >
-                  € {parseFloat(ctr).toFixed(2)}
-                    </Typography>
+                    € {parseFloat(ctr).toFixed(2)}
+                  </Typography>
                 </Paper></Grid>
                 <Grid item xs={6} sm={6}><Paper className={classes.paperValues}>
                   View Retention
               <Typography variant="h6" component="h3" >
-              {Math.floor(retention)}%
+                    {Math.floor(retention)}%
                     </Typography>
                 </Paper></Grid>
               </Grid>
             </Grid>
             <Grid container spacing={24}>
-            {data.getVideoAdPerformance.videos.map(video => 
-              <Grid item xs={3} sm={3}>
-                <VideoDetailsByPlatform key={video.id} {...video}/>
-              </Grid>
+              {data.getVideoAdPerformance.videos.map(video =>
+                <Grid item xs={3} sm={3}>
+                  <VideoDetailsByPlatform key={video.id} {...video} />
+                </Grid>
               )}
             </Grid>
           </Grid>
@@ -208,9 +222,9 @@ class VideoDetail extends React.Component {
             <Paper className={classes.paperValues}>
               <FontAwesomeIcon icon={faFacebookF} /><span> Best perfoming platform</span>
             </Paper>
-        
+
           </Grid>
-       
+
 
           {/* <Grid item xs={3} sm={9}>
             <Paper className={classes.paperGraph}>
@@ -228,7 +242,7 @@ class VideoDetail extends React.Component {
           </Grid> */}
 
         </Grid>
-      
+
       </div>
     );
   }
